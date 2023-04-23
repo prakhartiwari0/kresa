@@ -1,0 +1,145 @@
+
+
+body{
+    background-color: var(--light-lavender);
+    color: var(--k-blue);
+    display: flex;
+    flex-direction: column;
+}
+
+/* NAVBAR */
+
+.navbar_div{
+    justify-content: space-between; 
+    width: 100%;
+}
+
+.nav_kresa{
+    user-select: none;
+    padding: 1rem;
+    /* width: 0%; */
+    display: flex;
+    /* flex-direction: ; */
+    justify-content: left;
+    z-index: -1;
+}
+
+.nav_logoimage{
+    width: 12rem;
+}
+.navlinks{
+    text-decoration: none;
+    font-size: 1rem;
+    color: var(--k-blue);
+    font-family: Ysabeau;
+    margin: 1rem;
+    transition: 0.2s ease;
+    padding: 1rem;
+    border-bottom: 2px solid var(--light-lavender);
+    border-top: 2px solid var(--light-lavender);
+
+}
+
+
+.navlinks:focus{
+    border-radius: 1rem;
+    outline: 2px solid var(--k-blue);
+}
+.navlinks:hover{
+    /* text-decoration: underline; */
+    border-radius: 1rem;
+    /* padding-bottom: 0;
+    padding-top: 0; */
+    /* border-radius: 0rem; */
+    border-bottom: 2px solid var(--k-blue);
+    border-top: 2px solid var(--k-blue);
+}
+
+
+
+.get_started{
+    border-radius: 1rem;
+
+    background-color: var(--k-blue);
+    /* border-radius: 1rem; */
+    color: var(--light-lavender);
+    border: 2px solid var(--light-lavender);
+    /* padding: 1rem; */
+}
+.get_started:hover{
+    text-decoration: none;
+    border: 2px solid var(--k-blue);
+    background-color: var(--light-lavender);
+    color: var(--k-blue);
+
+
+}
+
+
+/* .mobile_menu_button{
+    outline: none;
+    border: none;
+    background-color: var(--k-blue);
+    color: var(--light-lavender);
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-right: 5px;
+    border-bottom-left-radius: 100%;
+    font-size: 2rem;
+    font-family: kagitingan;
+} */
+
+
+
+/* FIRST SECTION  */
+.first_section{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: center;
+    height: 100vh;
+    padding: 1rem;
+
+}
+
+h2#tagline{
+    font-family: Ysabeau;
+    font-size: 3.5rem ;
+    text-shadow: 12px 12x 12px black;
+    text-align: center;
+    width: 50%;
+}
+
+
+.fs_img{
+    width: 100%;
+}
+
+.blob_1{
+    width: 200%;
+    position: fixed;
+    z-index: -1;
+    right: -400px;
+    bottom: 20px;
+}
+
+
+
+
+.front_illust1{
+    width: 80%;
+}
+
+
+
+
+footer{
+    flex-direction: column;
+    width: 100%;
+    padding: 15px 10px;
+    /* position: fixed; */
+    /* bottom: 0; */
+    background-color: var(--k-blue);
+    color: var(--light-lavender);
+}
