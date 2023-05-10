@@ -43,12 +43,17 @@
     align-items: center;
     width: 50%;
     padding: 2rem;
-    /* max-height: max-content; */
+    max-height: max-content;
 }
+
+
+
+
 
 
 #close_gfr_main_div{
   user-select: none;
+
   color: white;
   position: absolute;
   z-index: 3;
@@ -90,7 +95,7 @@
   cursor: pointer;
   transition: color 0.2s ease;
 }
-.stars i.selected {
+.stars i.active {
   color: var(--k-blue);
 }
 
