@@ -1,7 +1,7 @@
 <template>
     <nav class="navbar_div basic_flexbox">
         <div class="basic_flexbox nav_kresa">
-            <img src="../assets/Kresa Logo/kresa_dark_cropped_transparent.svg" alt="kresa_logo" class="nav_logoimage">
+            <img src="../assets/logos/kresa_dark_cropped_transparent.svg" alt="kresa_logo" class="nav_logoimage">
         </div>
         <div class="basic_flexbox">
             <router-link :to="link[2]" :title="link[0]" class="navlinks" v-for="(link, index) in navlinks">
