@@ -60,7 +60,7 @@ export default{
     color: var(--k-blue);
     font-family: Ysabeau;
     margin: 1rem;
-    transition: 0.5s ease;
+    transition: 0.3s ease;
     padding: 1rem;
     border-bottom: 2px solid var(--light-lavender);
     border-top: 2px solid var(--light-lavender);
