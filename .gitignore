@@ -26,3 +26,7 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+
+
+# My files to ignore
+project_planner.md
