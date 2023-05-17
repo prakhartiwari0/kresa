@@ -45,4 +45,25 @@
     display: flex;
     justify-content: center;
     align-items: center;
-}
+  }
+  
+  
+  .default_button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: var(--k-blue) 3px solid;
+    color: var(--k-blue);
+    padding: 0.5rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    font-family: Ysabeau;
+  }
+  .default_button:hover{
+    background-color: var(--k-blue);
+    color: white;
+  }
+  .default_button:focus{
+    outline: var(--k-blue) 1px solid;
+  }
