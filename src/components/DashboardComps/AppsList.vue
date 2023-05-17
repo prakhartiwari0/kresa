@@ -1,51 +1,53 @@
 <template>
     <div class="appslistdiv">
 
+        
         <div class="appdiv"
+        @click="openAppStats(app.appname)"
              v-for="(app, index) in apps">
             <img :src="app.appiconurl"
                  :alt="app.appname">
             <span>{{ app.appname }}</span>
-        </div>
+    </div>
         <div class="addappbuttondiv">
-            <button class="addappbutton material-symbols-outlined">add</button>
-
+            <button 
+            @click="openAddAppModal"
+            class="addappbutton material-symbols-outlined">add</button>
         </div>
-
-
-
-
+        <AddAppModal v-if="showAddAppModal" @closeAddAppModal1="closeAddAppModal2($event)"/>  
     </div>
 </template>
 
 <script>
+import AddAppModal from './AddAppModal.vue';
+
 export default {
+    components: { AddAppModal },
     data() {
         return {
+            showAddAppModal: false,
+
             apps: [
-                {
-                    appname: "Arito",
-                    appiconurl: "../../../src/assets/examplefiles/Arito_icon.png",
-                },
-                {
-                    appname: "Arito",
-                    appiconurl: "../../../src/assets/examplefiles/Arito_icon.png",
-                },
-                {
-                    appname: "Arito",
-                    appiconurl: "../../../src/assets/examplefiles/Arito_icon.png",
-                },
-                {
-                    appname: "Arito",
-                    appiconurl: "../../../src/assets/examplefiles/Arito_icon.png",
-                },
                 {
                     appname: "Arito",
                     appiconurl: "../../../src/assets/examplefiles/Arito_icon.png",
                 },
             ]
         }
+    },
+    methods: {
+        openAppStats(appName) {
+            this.$emit('openAppStats1', appName);
+        },
+        openAddAppModal(){
+            this.showAddAppModal = true
+        },
+        closeAddAppModal2() {
+            this.showAddAppModal = false,
+                console.log(this.showAppStats);
+        }
     }
+
 
 }
 
@@ -60,6 +62,7 @@ export default {
     position: relative;
     justify-items: center;
     align-items: center;
+    flex-grow: 1;
 
 }
 
@@ -73,10 +76,14 @@ export default {
     margin-inline: 2rem;
     transition: 0.2s ease-in-out;
 
+    padding: 0.7rem;
+    border-radius: 1rem;
+
 }
 
 .appdiv:hover {
     transform: scale(1.1);
+    background-color: rgba(0, 0, 0, 0.252);
 }
 
 .appdiv img {
@@ -86,19 +93,21 @@ export default {
 
 
 .addappbuttondiv {
+    
     display: flex;
     width: 3rem;
     height: 3rem;
     border-radius: 100%;
     position: absolute;
-    bottom: 1rem;
-    right: 1rem;
-
+    bottom: 0rem;
+    right: 0rem;
+    margin: 1rem;
 }
 
 .addappbutton {
-    background-color: var(--k-blue);
-    color: white;
+
+    background-color: var(--lavender);
+    color: var(--k-blue);
     outline: none;
     border: none;
     user-select: none;
@@ -106,11 +115,14 @@ export default {
     border-radius: 100%;
     width: 100%;
     height: 100%;
+    border: 2px solid var(--k-blue);
+    transition: 0.2s ease;
 }
 
 .addappbutton:hover {
-    background-color: var(--lavender);
-    color: var(--k-blue);
+    border: 2px solid var(--k-blue);
+    background-color: var(--k-blue);
+    color: white;
 
 
 }
