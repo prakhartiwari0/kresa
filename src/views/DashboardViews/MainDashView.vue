@@ -1,21 +1,17 @@
 <template>
+    <div class="dashboarddiv">
 
-<div class="dashboarddiv"  >
+        <SideComp :sideBarwidth="sidebarWidth" />
+        <div class="statsappsdiv" :style="{ marginLeft: (sidebarWidth-((90/100)*sidebarWidth)) + 'px' }">
+            
+            <StatsAppsArea/>
+            <OverallStats />
+            <AppsList/>
+                        
+        </div>
 
-        <SideComp  :sideBarwidth="sidebarWidth" />
-        
-        <div class="statsappsdiv" :style="{ marginLeft: marginLeft + 'px' }">
-            <OverallStats/>
-        <AppsList></AppsList>
-</div>
-
-
-</div>
-<DashFooter></DashFooter>
-
-
-
-
+    </div>
+    <DashFooter></DashFooter>
 </template>
 
 <script>
@@ -24,12 +20,13 @@ import SideComp from '../../components/DashboardComps/SideComp.vue';
 import AppsList from '../../components/DashboardComps/AppsList.vue';
 import OverallStats from '../../components/DashboardComps/OverallStats.vue';
 import DashFooter from '../../components/DashboardComps/DashFooter.vue'
+import StatsAppsArea from '../../components/DashboardComps/StatsAppsArea.vue'
 
 
-export default{
-    components:{SideComp, AppsList, OverallStats, DashFooter},
-    date(){
-        return{
+export default {
+    components: { SideComp, AppsList, OverallStats, DashFooter, StatsAppsArea },
+    data() {
+        return {
             sidebarWidth: 300,
         }
     }
@@ -38,22 +35,23 @@ export default{
 </script>
 
 <style>
-
-.dashboarddiv{
+.dashboarddiv {
     display: flex;
-    padding: 1rem;
+    justify-content: center;
+    padding-top: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
-.statsappsdiv{
-    padding: 1rem;
-    flex-direction: row;
-      flex-grow: 1;
-  margin-left: 300px; /* Adjust the margin to accommodate the width of the left sidebar */
-  overflow-y: auto;
-  height: 1000vh;
+.statsappsdiv {
+    padding: 2rem;
+    padding-top: 0;
+    flex-grow: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    
+    
+    display: flex;
+    flex-direction: column;
 }
-
-
-
-
 </style>

@@ -1,5 +1,7 @@
 <template>
-    I am a component
+    <footer class="dashfoot">
+<a href="#">Contribute to Kresa</a>
+    </footer>
 </template>
 
 <script>
@@ -9,4 +11,11 @@ export default {
 
 </script>
 
-<style></style>
+<style>
+
+.dashfoot{
+    margin-top: 1rem;
+    height: 20rem;
+}
+
+</style>

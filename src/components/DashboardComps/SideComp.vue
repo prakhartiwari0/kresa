@@ -4,7 +4,7 @@
 <img :src="imageurl" alt="Your Profile Picture" class="pfpimg">
         </div>
         <div class="profile_info_div basic_flexbox">
-            fff
+            <span>Prakhar tiwari</span>
         </div>
     </div>
 </template>
@@ -14,7 +14,6 @@ export default {
     data(){
         return{
             imageurl:"../../../src/assets/examplefiles/pfp.png",
-
         }
         
     },
@@ -32,17 +31,19 @@ export default {
 
 
 .maindiv{
-    border: 2px solid black;
-    /* width: 30%; */
-    /* height: 100vh; */
-    /* position: fixed; */
-      /* width: 300px; */
-  position: fixed;
-  top: 0;
+  border: 2px solid black;
+  position: sticky;
+  top: 1rem;
   left: 0;
   bottom: 0;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  background-color: var(--k-blue);
+  border-radius: 2rem;
+  height: 90vh;
+  /* margin: 1rem; */
+
 }
 
 .pfp_div{
@@ -54,7 +55,10 @@ export default {
 }
 
 .profile_info_div{
-
+    display: flex;  
+    flex-direction: column;
+    color: white;
+    padding: 0.8rem;
 }
 
 

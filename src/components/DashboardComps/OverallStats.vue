@@ -1,6 +1,7 @@
 <template>
     <div class="statsmaindiv">
-        great stats bro
+
+        <h2>Overall Statistics</h2>
     </div>
 </template>
 
@@ -15,5 +16,10 @@ export default {
 .statsmaindiv{
     display: flex;
     height: 20rem;
+    background-color: var(--k-blue);
+    border-radius: 2rem;
+    color: white;
+    padding: 1rem;
+    
 }
 </style>
