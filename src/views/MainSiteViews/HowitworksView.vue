@@ -1,13 +1,23 @@
 <template>
 
+    <Navbar></Navbar>
+    <!-- <HomeFirstSection></HomeFirstSection> -->
+    How it works?
+    <Footer></Footer>
 
 
 </template>
 
 <script>
-export default{
+    import Navbar from '../../components/MainSiteComps/Navbar.vue';
+    import Footer from '../../components/MainSiteComps/Footer.vue';
+    import HomeFirstSection from '../../components/MainSiteComps/HomeFirstSection.vue';
 
-}
+    export default {
+        components: {
+            Navbar, Footer, HomeFirstSection
+        }
+    }
 
 </script>
 
