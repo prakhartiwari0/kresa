@@ -1,10 +1,10 @@
 <template>
     <div class="addprojectmodalbackcover">
 
-        <button 
-        @click="closeAddprojectModal"
-        class="closeaddprojectmodal_button  material-symbols-outlined">close</button>
-        <dialog class="addprojectmodal">
+        <dialog ref="addprojectmodal_ref" class="addprojectmodal">
+            <button 
+            @click="closeAddprojectModal"
+            class="closeaddprojectmodal_button  material-symbols-outlined">close</button>
             <h2>Enter project Details</h2>
             <div class="eachinputgroup">
                 <label for="project-logo">Logo:</label>
@@ -16,6 +16,7 @@
             <div class="eachinputgroup">
                 <label for="project-name">Name:</label>
                 <input id="project-name"
+                    ref="nameinputproject_ref"
                        type="text">
 
             </div>
@@ -44,6 +45,10 @@ export default {
     date(){
 
     },
+    mounted() {
+      this.$refs.addprojectmodal_ref.showModal()
+      this.$refs.nameinputproject_ref.focus()
+  },
     methods:{
         
         closeAddprojectModal() {
@@ -56,7 +61,7 @@ export default {
 </script>
 
 <style>
-.addprojectmodalbackcover {
+.addprojectmodal::backdrop {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -118,7 +123,6 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
     position: absolute;
     top: 1rem;
     right: 1rem;
@@ -128,9 +132,11 @@ export default {
     border-radius: 100%;
     height: 3rem;
     width: 3rem;
+    color: black;
 }
 
 .closeaddprojectmodal_button:hover {
+    color: white;
     background-color: rgba(0, 0, 0, 0.472);
 }
 </style>
