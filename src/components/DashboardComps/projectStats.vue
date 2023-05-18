@@ -1,8 +1,8 @@
 <template>
-    <div class="appstatsdiv">
+    <div class="projectstatsdiv">
 
         <button 
-        @click="closeAppStats()"
+        @click="closeprojectStats()"
         class="backtodashboardbutton material-symbols-outlined">arrow_back</button>
         <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
         <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
@@ -69,8 +69,8 @@ export default{
 
     },    
     methods: {
-        closeAppStats() {
-            this.$emit('closeAppStats1');
+        closeprojectStats() {
+            this.$emit('closeprojectStats1');
         }
 }
 }
@@ -79,7 +79,7 @@ export default{
 </script>
 
 <style>
-.appstatsdiv{
+.projectstatsdiv{
     display: flex;
     flex-grow: 1;
     flex-direction: column;

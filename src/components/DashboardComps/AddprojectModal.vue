@@ -1,33 +1,33 @@
 <template>
-    <div class="addappmodalbackcover">
+    <div class="addprojectmodalbackcover">
 
         <button 
-        @click="closeAddAppModal"
-        class="closeaddappmodal_button  material-symbols-outlined">close</button>
-        <dialog class="addappmodal">
-            <h2>Enter App Details</h2>
+        @click="closeAddprojectModal"
+        class="closeaddprojectmodal_button  material-symbols-outlined">close</button>
+        <dialog class="addprojectmodal">
+            <h2>Enter project Details</h2>
             <div class="eachinputgroup">
-                <label for="app-logo">Logo:</label>
-                <input id="app-logo"
+                <label for="project-logo">Logo:</label>
+                <input id="project-logo"
                        type="file"
                        accept="image/*">
                 
             </div>
             <div class="eachinputgroup">
-                <label for="app-name">Name:</label>
-                <input id="app-name"
+                <label for="project-name">Name:</label>
+                <input id="project-name"
                        type="text">
 
             </div>
             <div class="eachinputgroup">
-                <label for="app-url">URL:</label>
-                <input id="app-url"
+                <label for="project-url">URL:</label>
+                <input id="project-url"
                        type="text">
 
             </div>
             <div class="eachinputgroup">
-                <label for="app-description">Description:</label>
-                <textarea id="app-description"
+                <label for="project-description">Description:</label>
+                <textarea id="project-description"
                           rows="4" ></textarea>
 
             </div>
@@ -46,8 +46,8 @@ export default {
     },
     methods:{
         
-        closeAddAppModal() {
-            this.$emit('closeAddAppModal1');
+        closeAddprojectModal() {
+            this.$emit('closeAddprojectModal1');
         },
 
     }
@@ -56,7 +56,7 @@ export default {
 </script>
 
 <style>
-.addappmodalbackcover {
+.addprojectmodalbackcover {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -71,7 +71,7 @@ export default {
 }
 
 
-.addappmodal {
+.addprojectmodal {
     width: 60%;
     display: flex;
     flex-direction: column;
@@ -113,7 +113,7 @@ export default {
     outline: none;
 }
 
-.closeaddappmodal_button {
+.closeaddprojectmodal_button {
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -130,7 +130,7 @@ export default {
     width: 3rem;
 }
 
-.closeaddappmodal_button:hover {
+.closeaddprojectmodal_button:hover {
     background-color: rgba(0, 0, 0, 0.472);
 }
 </style>

@@ -1,17 +1,17 @@
 <template>
-    <div class="dashboarddiv" :class="{ unselectable: showAppStats }">
+    <div class="dashboarddiv" :class="{ unselectable: showprojectStats }">
         <SideComp :sideBarwidth="sidebarWidth" />
-        <div class="statsappsdiv"
+        <div class="statsprojectsdiv"
              :style="{ marginLeft: (sidebarWidth - ((90 / 100) * sidebarWidth)) + 'px' }">
                 
-            <template  v-if="showAppStats">
-                <AppStats @closeAppStats1="closeAppStats2($event)"/>
+            <template  v-if="showprojectStats">
+                <projectStats @closeprojectStats1="closeprojectStats2($event)"/>
             
             </template>
         <template v-else>
 
             <OverallStats />
-            <AppsList @openAppStats1="openAppStats2($event)"/>
+            <projectsList @openprojectStats1="openprojectStats2($event)"/>
         </template>
     
         </div>
@@ -23,29 +23,29 @@
 <script>
 
 import SideComp from '../../components/DashboardComps/SideComp.vue';
-import AppsList from '../../components/DashboardComps/AppsList.vue';
+import projectsList from '../../components/DashboardComps/projectsList.vue';
 import OverallStats from '../../components/DashboardComps/OverallStats.vue';
 import DashFooter from '../../components/DashboardComps/DashFooter.vue'
-import AppStats from '../../components/DashboardComps/AppStats.vue'
+import projectStats from '../../components/DashboardComps/projectStats.vue'
 
 
 export default {
-    components: { SideComp, AppsList, OverallStats, DashFooter, AppStats },
+    components: { SideComp, projectsList, OverallStats, DashFooter, projectStats },
     data() {
         return {
-            showAppStats: false,
+            showprojectStats: false,
             sidebarWidth: 300,
         }
     },
     methods: {
-        openAppStats2(appName) {
-            this.showAppStats = true,
-            console.log(this.showAppStats);
-            console.log('Selected app:', appName);
+        openprojectStats2(projectName) {
+            this.showprojectStats = true,
+            console.log(this.showprojectStats);
+            console.log('Selected project:', projectName);
         },
-        closeAppStats2() {
-            this.showAppStats = false,
-            console.log(this.showAppStats);
+        closeprojectStats2() {
+            this.showprojectStats = false,
+            console.log(this.showprojectStats);
         }
         
 
@@ -66,7 +66,7 @@ export default {
 
 }
 
-.statsappsdiv {
+.statsprojectsdiv {
     padding: 2rem;
     padding-top: 0;
     flex-grow: 1;
