@@ -1,21 +1,27 @@
 <template>
-    <div class="appslistdiv">
 
+<div class="appsarea">
+
+    <div class="appsheading">
+        <h2>Your Apps</h2>
+    </div>
+    <div class="appslistdiv">
         
         <div class="appdiv"
         @click="openAppStats(app.appname)"
-             v-for="(app, index) in apps">
-            <img :src="app.appiconurl"
-                 :alt="app.appname">
-            <span>{{ app.appname }}</span>
+        v-for="(app, index) in apps">
+        <img :src="app.appiconurl"
+        :alt="app.appname">
+        <span>{{ app.appname }}</span>
     </div>
-        <div class="addappbuttondiv">
-            <button 
-            @click="openAddAppModal"
-            class="addappbutton material-symbols-outlined">add</button>
-        </div>
+    <div class="addappbuttondiv">
+        <button 
+        @click="openAddAppModal"
+        class="addappbutton material-symbols-outlined">add</button>
+    </div>
         <AddAppModal v-if="showAddAppModal" @closeAddAppModal1="closeAddAppModal2($event)"/>  
     </div>
+</div>
 </template>
 
 <script>
@@ -28,6 +34,38 @@ export default {
             showAddAppModal: false,
 
             apps: [
+                {
+                    appname: "Arito",
+                    appiconurl: "../../../src/assets/examplefiles/Arito_icon.png",
+                },
+                {
+                    appname: "Arito",
+                    appiconurl: "../../../src/assets/examplefiles/Arito_icon.png",
+                },
+                {
+                    appname: "Arito",
+                    appiconurl: "../../../src/assets/examplefiles/Arito_icon.png",
+                },
+                {
+                    appname: "Arito",
+                    appiconurl: "../../../src/assets/examplefiles/Arito_icon.png",
+                },
+                {
+                    appname: "Arito",
+                    appiconurl: "../../../src/assets/examplefiles/Arito_icon.png",
+                },
+                {
+                    appname: "Arito",
+                    appiconurl: "../../../src/assets/examplefiles/Arito_icon.png",
+                },
+                {
+                    appname: "Arito",
+                    appiconurl: "../../../src/assets/examplefiles/Arito_icon.png",
+                },
+                {
+                    appname: "Arito",
+                    appiconurl: "../../../src/assets/examplefiles/Arito_icon.png",
+                },
                 {
                     appname: "Arito",
                     appiconurl: "../../../src/assets/examplefiles/Arito_icon.png",
@@ -54,15 +92,26 @@ export default {
 </script>
 
 <style>
+.appsarea{
+    padding: 1em;
+
+}
+
+.appsheading{
+
+}
+
+
+
 .appslistdiv {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
     grid-gap: 1rem;
-    padding: 1em;
     position: relative;
     justify-items: center;
     align-items: center;
     flex-grow: 1;
+    margin-block: 1rem;
 
 }
 
@@ -74,7 +123,7 @@ export default {
     align-items: center;
     width: 5rem;
     margin-inline: 2rem;
-    transition: 0.2s ease-in-out;
+    transition: 0.2s ease;
 
     padding: 0.7rem;
     border-radius: 1rem;
@@ -82,7 +131,7 @@ export default {
 }
 
 .appdiv:hover {
-    transform: scale(1.1);
+    /* transform: scale(1.1); */
     background-color: rgba(0, 0, 0, 0.252);
 }
 

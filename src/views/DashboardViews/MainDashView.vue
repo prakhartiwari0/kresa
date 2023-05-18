@@ -56,6 +56,7 @@ export default {
 
 <style>
 .dashboarddiv {
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     padding-top: 1rem;
