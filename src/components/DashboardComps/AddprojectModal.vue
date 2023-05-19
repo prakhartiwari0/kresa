@@ -3,7 +3,7 @@
 
         <dialog ref="addprojectmodal_ref" class="addprojectmodal">
             <button 
-            @click="closeAddprojectModal"
+            @click="$emit('closeAddprojectModalClicked')"
             class="closeaddprojectmodal_button  material-symbols-outlined">close</button>
             <h2>Enter project Details</h2>
             <div class="eachinputgroup">
@@ -50,10 +50,6 @@ export default {
       this.$refs.nameinputproject_ref.focus()
   },
     methods:{
-        
-        closeAddprojectModal() {
-            this.$emit('closeAddprojectModal1');
-        },
 
     }
 

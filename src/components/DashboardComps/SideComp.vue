@@ -4,24 +4,68 @@
 <img :src="imageurl" alt="Your Profile Picture" class="pfpimg">
         </div>
         <div class="profile_info_div basic_flexbox">
-            <span>Prakhar tiwari</span>
+            <span class="userFullName">{{ userFullName }}</span>
+            <!-- <span class="userGithub">{{ userGithub }}</span> -->
         </div>
+        <button 
+        @click="showEditProfileModal = true"
+        class="editProfileButton material-symbols-outlined">
+            edit
+        </button>
+
+        <a href="#" class="signoutLink" @click="signoutClicked"> 
+            Sign Out
+            <span class=" material-symbols-outlined">logout</span>
+        </a>
     </div>
+
+<template v-if="showEditProfileModal">
+    <EditProfileModal @closeEditprofileModalClicked="showEditProfileModal = !showEditProfileModal"></EditProfileModal>
+</template>
+
+
 </template>
 
 <script>
+import EditProfileModal from './EditProfileModal.vue'
+
+import { signOut } from "firebase/auth";
+import { auth } from "@/firebase/firebase";
+import firebaseService from "@/firebase/firebaseService";
+
+
 export default {
+    components:{EditProfileModal},
     data(){
         return{
-            imageurl:"../../../src/assets/examplefiles/pfp.png",
+            imageurl: firebaseService.user.photoURL,
+            userFullName: firebaseService.user.displayName,
+            showEditProfileModal: false,
         }
         
     },
-      props: {
+    props: {
         sideBarwidth: {
             type: Number,
             required: true,
         }
+    },
+    mounted (){
+        // console.log(userFullName)    
+        // console.log(firebaseService.user)
+
+    },
+    methods:{
+        signoutClicked() {
+            signOut(auth)
+                .then(() => {
+                    // Successful sign-out
+                    this.$router.push('/'); // Redirect to the root page
+                })
+                .catch((error) => {
+                    // Handle sign-out error
+                });
+            }
     }
 }
 
@@ -31,7 +75,10 @@ export default {
 
 
 .maindiv{
-  border: 2px solid black;
+  /* border: 2px solid black; */
+  /* box-shadow: 0px 0px 7px 1px black; */
+    box-shadow: 0px 10px 20px 0px black;
+
   position: sticky;
   top: 1rem;
   left: 0;
@@ -39,28 +86,79 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  background-color: var(--k-blue);
+
+  background: rgb(16,99,148);
+background: linear-gradient(0deg, rgba(16,99,148,1) 0%, rgba(16,99,148,1) 25%, rgba(64,139,184,1) 50%, rgba(99,169,210,1) 75%, rgba(116,183,222,1) 89%, rgba(132,196,234,1) 100%);
   border-radius: 2rem;
   height: 90vh;
-  /* margin: 1rem; */
 
 }
 
 .pfp_div{
-    padding: 1rem;
+    margin: 1rem;
+    width: 81%;
+    padding: .5rem;
+    border-radius: 100%;
+    /* background-color: var(--k-blue); */
 }
 .pfpimg{
     border-radius: 100%;
     width: 100%;
+    /* box-shadow: 0px 0px 10px 1px black; */
+    box-shadow: 0px 10px 20px 0px black;
+
 }
 
 .profile_info_div{
-    display: flex;  
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex: 1;
+    width: 81%;
+    /* margin: 1rem; */
     flex-direction: column;
     color: white;
     padding: 0.8rem;
 }
+.profile_info_div .userFullName{
+    font-size: 1.5rem;
+}
 
-
+.editProfileButton{
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+    background-color: transparent;
+    border: none;
+    border-radius: 100%;
+    padding: .5rem;
+    cursor: pointer;
+    color: white;
+    
+}
+.editProfileButton:hover{
+    background-color: rgba(0, 0, 0, 0.25);
+    
+}
+.signoutLink{
+    cursor: pointer;
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    text-decoration: none;
+    border-radius: 1rem;
+    padding: .5rem;
+    color: rgba(255, 255, 255, 0.5);
+    
+    display: flex;
+    justify-content: center;
+}
+.signoutLink span{
+    margin-left: .3rem;
+}
+.signoutLink:hover{
+    color: rgba(255, 255, 255);
+    background-color: rgba(0, 0, 0, 0.5);
+}
 
 </style>

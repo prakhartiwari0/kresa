@@ -8,7 +8,7 @@
     <div class="projectslistdiv">
         
         <div class="projectdiv"
-        @click="openprojectStats(project.projectname)"
+        @click="$emit('openprojectStatsClicked', project.projectName)"
         v-for="(project, index) in projects">
         <img :src="project.projecticonurl"
         :alt="project.projectname">
@@ -16,10 +16,10 @@
     </div>
     <div class="addprojectbuttondiv">
         <button 
-        @click="openAddprojectModal"
+        @click="openAddprojectModalClicked"
         class="addprojectbutton material-symbols-outlined">add</button>
     </div>
-        <AddprojectModal v-if="showAddprojectModal" @closeAddprojectModal1="closeAddprojectModal2($event)"/>  
+        <AddprojectModal v-if="showAddprojectModal" @closeAddprojectModalClicked="showAddprojectModal = false"/>  
     </div>
 </div>
 </template>
@@ -74,15 +74,11 @@ export default {
         }
     },
     methods: {
-        openprojectStats(projectName) {
-            this.$emit('openprojectStats1', projectName);
-        },
-        openAddprojectModal(){
+        // openprojectStatsClicked(projectName) {
+        //     this.;
+        // },
+        openAddprojectModalClicked(){
             this.showAddprojectModal = true
-        },
-        closeAddprojectModal2() {
-            this.showAddprojectModal = false,
-                console.log(this.showprojectStats);
         }
     }
 
@@ -171,6 +167,8 @@ export default {
 .addprojectbutton:hover {
     border: 2px solid var(--k-blue);
     background-color: var(--k-blue);
+    box-shadow: 0px 0px 5px 0px black;
+
     color: white;
 
 

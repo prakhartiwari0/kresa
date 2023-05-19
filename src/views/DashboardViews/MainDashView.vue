@@ -5,13 +5,14 @@
              :style="{ marginLeft: (sidebarWidth - ((90 / 100) * sidebarWidth)) + 'px' }">
                 
             <template  v-if="showprojectStats">
-                <projectStats @closeprojectStats1="closeprojectStats2($event)"/>
+                <projectStats @closeprojectStatsClicked="
+                    this.showprojectStats = false"/>
             
             </template>
         <template v-else>
 
             <OverallStats />
-            <projectsList @openprojectStats1="openprojectStats2($event)"/>
+            <projectsList @openprojectStatsClicked="onopenprojectStatsClicked($event)"/>
         </template>
     
         </div>
@@ -38,13 +39,12 @@ export default {
         }
     },
     methods: {
-        openprojectStats2(projectName) {
-            this.showprojectStats = true,
+        onopenprojectStatsClicked(projectName) {
+            this.showprojectStats = true
             console.log(this.showprojectStats);
             console.log('Selected project:', projectName);
         },
         closeprojectStats2() {
-            this.showprojectStats = false,
             console.log(this.showprojectStats);
         }
         

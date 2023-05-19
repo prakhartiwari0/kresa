@@ -2,54 +2,9 @@
     <div class="projectstatsdiv">
 
         <button 
-        @click="closeprojectStats()"
+        @click="$emit('closeprojectStatsClicked')"
         class="backtodashboardbutton material-symbols-outlined">arrow_back</button>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, exercitationem.</p>
+        Very good project stats
         
     </div>
 
@@ -69,9 +24,6 @@ export default{
 
     },    
     methods: {
-        closeprojectStats() {
-            this.$emit('closeprojectStats1');
-        }
 }
 }
 
