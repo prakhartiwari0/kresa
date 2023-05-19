@@ -4,6 +4,9 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 
+import firebaseService from "@/firebase/firebaseService";
+firebaseService.initialize();
+
 const app = createApp(App)
 
 app.use(router)
