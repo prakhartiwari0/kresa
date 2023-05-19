@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/MainSiteViews/HomeView.vue'
-import HowitworksView from '../views/MainSiteViews/HowitworksView.vue'
-
 import MainDashView from '../views/DashboardViews/MainDashView.vue'
+
+
+import AuthGuard from "../firebase/AuthGaurd";
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,16 +15,24 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/howitworks',
-      name: 'howitworks',
-      component: HowitworksView
-    },
-    {
       path: '/dashboard',
       name: 'dashboard',
-      component: MainDashView
+      component: MainDashView,
+      beforeEnter: (to, from, next) => {
+        AuthGuard.init()
+          .then(() => {
+            // User is authenticated, allow access to the route
+            next();
+          })
+          .catch((error) => {
+            // User is not authenticated, redirect to the homepage
+            console.error(error);
+            next("/");
+          });
+      },
     },
   ]
 })
+
 
 export default router
