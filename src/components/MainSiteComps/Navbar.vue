@@ -12,8 +12,8 @@
                          class="navlinks"
                          v-for="(link, index) in navlinks">
             <img :src="iconsdir+link[1]+'.svg'" :alt="link[1]" class="navlinks">
-            </a>
-            <template v-if="user" class="navlinks">
+        </a>
+        <template v-if="user" class="navlinks">
 
                 <router-link to="dashboard" class="navlinks" title="Dashboard">
                     <img :src="user.photoURL" alt="profile_pic" class="profile_picture">
@@ -21,7 +21,8 @@
             </template>
             <template v-else>
                 <a href="#" :title="ifnotloggedin[0]"  class="navlinks"  @click="LogSignPopupClicked">
-                    {{ ifnotloggedin[1] }}
+                    <img :src="iconsdir+ ifnotloggedin[1] +'.svg'" :alt="ifnotloggedin[1]" class="navlinks">
+                    <!-- {{  }} -->
                 </a>
             </template>
         </div>
