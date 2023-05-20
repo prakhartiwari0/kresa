@@ -2,29 +2,29 @@
     <nav class="navbar_div basic_flexbox">
         <div class="basic_flexbox nav_kresa">
             <img src="../../assets/logos/kresa_dark_cropped_transparent.svg"
-                 alt="kresa_logo"
-                 class="nav_logoimage">
+            alt="kresa_logo"
+            class="nav_logoimage">
         </div>
         <div class="basic_flexbox navlinks_div">
             <a @click="$emit('pageChange', link[2])" 
             :ref="link[2]"
             :title="link[0]"
-                         class="navlinks"
-                         v-for="(link, index) in navlinks">
-            <img :src="iconsdir+link[1]+'.svg'" :alt="link[1]" class="navlinks">
+            class="navlinks"
+            v-for="(link, index) in navlinks">
+            <img :src="link[1]" :alt="link[2]" class="navlinks">
         </a>
         <template v-if="user" class="navlinks">
-
-                <router-link to="dashboard" class="navlinks" title="Dashboard">
-                    <img :src="user.photoURL" alt="profile_pic" class="profile_picture">
-                </router-link>
-            </template>
-            <template v-else>
-                <a href="#" :title="ifnotloggedin[0]"  class="navlinks"  @click="LogSignPopupClicked">
-                    <img :src="iconsdir+ ifnotloggedin[1] +'.svg'" :alt="ifnotloggedin[1]" class="navlinks">
-                    <!-- {{  }} -->
-                </a>
-            </template>
+            
+            <router-link to="dashboard" class="navlinks" title="Dashboard">
+                <img :src="user.photoURL" alt="profile_pic" class="profile_picture">
+            </router-link>
+        </template>
+        <template v-else>
+            <a href="#" :title="ifnotloggedin[0]"  class="navlinks"  @click="LogSignPopupClicked">
+                <img :src="ifnotloggedin[1]" :alt="ifnotloggedin[2]" class="navlinks">
+                <!-- {{  }} -->
+            </a>
+        </template>
         </div>
     </nav>
 </template>
@@ -38,10 +38,10 @@ export default {
         return {
             iconsdir: "",
             navlinks: [
-                ["Home", "home", 'home'],
-                ["How Kresa Works?", "howitworks", "howitoworks"],
+                ["Home", "../src/assets/home.svg", 'home'],
+                ["How Kresa Works?", "../src/assets/howitworks.svg", "howitoworks"],
             ],
-            ifnotloggedin: ["Get Started", "getstarted"],
+            ifnotloggedin: ["Get Started", "../src/assets/getstarted.svg"],
             user: null,
         }
     },
@@ -52,7 +52,7 @@ export default {
 
     }, 
     mounted() {
-        this.iconsdir = 'src/assets/'
+        this.iconsdir = '../src/assets/'
         onAuthStateChanged(auth, (user) => {
             this.user = user;
             console.log(user);
