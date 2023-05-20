@@ -6,12 +6,12 @@
                  class="nav_logoimage">
         </div>
         <div class="basic_flexbox navlinks_div">
-            <a @click="$emit('pageChange',link[2])
-                " 
+            <a @click="$emit('pageChange', link[2])" 
+            :ref="link[2]"
             :title="link[0]"
                          class="navlinks"
                          v-for="(link, index) in navlinks">
-            {{ link[1] }}
+            <img :src="iconsdir+link[1]+'.svg'" alt="" class="navlinks">
             </a>
             <template v-if="user" class="navlinks">
 
@@ -24,7 +24,6 @@
                     {{ ifnotloggedin[1] }}
                 </a>
             </template>
-            <!-- <a href="#"  class="navlinks" >{{ logordash[1] }}</a> -->
         </div>
     </nav>
 </template>
@@ -36,11 +35,12 @@ import { auth } from '@/firebase/firebase';
 export default {
     data() {
         return {
+            iconsdir: 'src/assets/icons/',
             navlinks: [
-                ["Home", "🛖", 'home'],
-                ["How Kresa Works?", "🤔", "howitoworks"],
+                ["Home", "home", 'home'],
+                ["How Kresa Works?", "howitworks", "howitoworks"],
             ],
-            ifnotloggedin: ["Get Started", "🔥"],
+            ifnotloggedin: ["Get Started", "getstarted"],
             user: null,
         }
     },
@@ -64,7 +64,6 @@ export default {
 </script>
 
 <style>
-/* NAVBAR */
 
 .navbar_div {
     user-select: none;
@@ -91,9 +90,6 @@ export default {
 }
 
 .navlinks_div{
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
     margin-right: 1rem;
 }
 
@@ -102,25 +98,23 @@ export default {
     justify-content: center;
     align-items: center;
 
-
     cursor: pointer;
     text-decoration: none;
     font-size: 2.5rem;
     color: var(--k-blue);
     font-family: Ysabeau;
-    margin: 1rem;
+    margin: .5rem;
     transition: 0.3s ease;
     padding: 1rem;
     outline: none;
-    transform: scale(0.8);
     opacity: 0.7;
 }
 
-.router-link-exact-active {
+/* .router-link-exact-active {
     opacity: 1;
     transform: scale(1.2);
-
-}
+    
+} */
 
 .navlinks:not(.router-link-exact-active):hover {
     opacity: 1;
@@ -129,9 +123,7 @@ export default {
 
 
 .profile_picture {
-  /* width: 30px;
-  height: 30px; */
-  width: 2.5rem;
-  border-radius: 100%;
+    width: 3rem;
+    border-radius: 100%;
 }
 </style>
