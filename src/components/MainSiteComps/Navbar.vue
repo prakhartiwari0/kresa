@@ -29,7 +29,6 @@
         <template v-else>
             <a href="#" :title="ifnotloggedin[0]"  class="navlinks"  @click="LogSignPopupClicked">
                 <img :src="ifnotloggedin[1]" :alt="ifnotloggedin[2]" class="navlinks">
-                <!-- {{  }} -->
             </a>
         </template>
         </div>
@@ -45,10 +44,10 @@ export default {
         return {
             iconsdir: "",
             navlinks: [
-                ["Home", "../src/assets/home.svg", 'home'],
-                ["How Kresa Works?", "../src/assets/howitworks.svg", "howitoworks"],
+                ["Home", "../../assets/home.svg", 'home'],
+                ["How Kresa Works?", "../../assets/howitworks.svg", "howitoworks"],
             ],
-            ifnotloggedin: ["Get Started", "../src/assets/getstarted.svg"],
+            ifnotloggedin: ["Get Started", "../../assets/getstarted.svg"],
             user: null,
         }
     },
