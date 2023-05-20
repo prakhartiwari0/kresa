@@ -7,29 +7,24 @@
             alt="kresa_logo"
             class="nav_logoimage">
         </div>
-
-        <div class="basic_flexbox navlinks_div">
-            <a @click="$emit('pageChange', link[2])" 
-            :ref="link[2]"
-            :title="link[0]"
-            class="navlinks"
-            v-for="(link, index) in navlinks">
-            <img src="../../assets/home.svg" alt="" class="hidden_img">
-            <img src="../../assets/howitworks.svg" alt="" class="hidden_img">
-            <img src="../../assets/getstarted.svg" alt="" class="hidden_img">
-
-            <img :src="link[1]" :alt="link[2]" class="navlinks">
-        </a>
-        <template v-if="user" class="navlinks">
-            
-            <router-link to="dashboard" class="navlinks" title="Dashboard">
-                <img :src="user.photoURL" alt="profile_pic" class="profile_picture">
-            </router-link>
-        </template>
-        <template v-else>
-            <a href="#" :title="ifnotloggedin[0]"  class="navlinks"  @click="LogSignPopupClicked">
-                <img :src="ifnotloggedin[1]" :alt="ifnotloggedin[2]" class="navlinks">
+        
+        <div class="basic_flexbox navlinks_div">            
+            <a href="#" class="navlinks">
+                <img src="../../assets/home.svg" title="Home" alt="home" class="" @click="$emit('pageChange', 'home')">
             </a>
+            <a href="#" class="navlinks">
+                <img src="../../assets/howitworks.svg" title="How Kresa Works?" alt="howitworks" class="" @click="$emit('pageChange', 'howitworks')">
+                
+            </a>
+            <template v-if="user" class="navlinks">
+                <router-link to="dashboard" class="navlinks" title="Dashboard">
+                    <img :src="user.photoURL" alt="profile_pic" class="profile_picture">
+                </router-link>
+            </template>
+            <template v-else>
+                <a href="#" class="navlinks" title="Get Started"  @click="LogSignPopupClicked">
+                    <img src="../../assets/getstarted.svg" alt="getstarted">
+                </a>
         </template>
         </div>
     </nav>
@@ -72,11 +67,6 @@ export default {
 </script>
 
 <style>
-.hidden_img{
-    display: none;
-}
-
-
 .navbar_div {
     user-select: none;
     justify-content: space-between;
@@ -115,7 +105,7 @@ export default {
     font-size: 2.5rem;
     color: var(--k-blue);
     font-family: Ysabeau;
-    margin: .5rem;
+    margin: 1rem;
     transition: 0.3s ease;
     padding: 1rem;
     outline: none;
