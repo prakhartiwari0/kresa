@@ -90,7 +90,12 @@ export default {
                     // The signed-in user info.
                     const user = result.user;
                     console.log(user);
+
+                    // Close the GitHub Login Popup
                     this.LogSignPopupVisible = false
+
+                    this.$router.push('/dashboard'); // Redirect to the root page
+
                     
                     // IdP data available using getAdditionalUserInfo(result)
                     // ...
