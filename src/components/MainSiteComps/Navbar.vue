@@ -1,16 +1,23 @@
 <template>
+
+
     <nav class="navbar_div basic_flexbox">
         <div class="basic_flexbox nav_kresa">
             <img src="../../assets/logos/kresa_dark_cropped_transparent.svg"
             alt="kresa_logo"
             class="nav_logoimage">
         </div>
+
         <div class="basic_flexbox navlinks_div">
             <a @click="$emit('pageChange', link[2])" 
             :ref="link[2]"
             :title="link[0]"
             class="navlinks"
             v-for="(link, index) in navlinks">
+            <img src="../../assets/home.svg" alt="" class="hidden_img">
+            <img src="../../assets/howitworks.svg" alt="" class="hidden_img">
+            <img src="../../assets/getstarted.svg" alt="" class="hidden_img">
+
             <img :src="link[1]" :alt="link[2]" class="navlinks">
         </a>
         <template v-if="user" class="navlinks">
@@ -66,6 +73,10 @@ export default {
 </script>
 
 <style>
+.hidden_img{
+    display: none;
+}
+
 
 .navbar_div {
     user-select: none;
