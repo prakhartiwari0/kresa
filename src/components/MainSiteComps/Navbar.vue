@@ -11,7 +11,7 @@
             :title="link[0]"
                          class="navlinks"
                          v-for="(link, index) in navlinks">
-            <img :src="iconsdir+link[1]+'.svg'" alt="" class="navlinks">
+            <img :src="iconsdir+link[1]+'.svg'" :alt="link[1]" class="navlinks">
             </a>
             <template v-if="user" class="navlinks">
 
@@ -35,7 +35,7 @@ import { auth } from '@/firebase/firebase';
 export default {
     data() {
         return {
-            iconsdir: 'src/assets/icons/',
+            iconsdir: '../src/assets/',
             navlinks: [
                 ["Home", "home", 'home'],
                 ["How Kresa Works?", "howitworks", "howitoworks"],
