@@ -36,7 +36,7 @@ import { auth } from '@/firebase/firebase';
 export default {
     data() {
         return {
-            iconsdir: '../src/assets/',
+            iconsdir: "",
             navlinks: [
                 ["Home", "home", 'home'],
                 ["How Kresa Works?", "howitworks", "howitoworks"],
@@ -52,6 +52,7 @@ export default {
 
     }, 
     mounted() {
+        this.iconsdir = 'src/assets/'
         onAuthStateChanged(auth, (user) => {
             this.user = user;
             console.log(user);
