@@ -18,10 +18,12 @@ const router = createRouter({
       path: '/dashboard',
       name: 'dashboard',
       component: MainDashView,
+      meta: { title: 'Kresa Dashboard' },
       beforeEnter: (to, from, next) => {
         AuthGuard.init()
-          .then(() => {
-            // User is authenticated, allow access to the route
+        .then(() => {
+          document.title = to.meta.title || 'Kresa - Get Feedback & Rating for Web Projects';
+          // User is authenticated, allow access to the route
             next();
           })
           .catch((error) => {
