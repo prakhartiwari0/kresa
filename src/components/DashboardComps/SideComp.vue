@@ -1,33 +1,51 @@
 <template>
-    <div class="maindiv basic_flexbox" :style="{ width: sideBarwidth + 'px' }">
+    <template v-if="showConfirmationPopup">
+        <confirmationPopup :msg="confirmSignout"
+                           @yesClicked="signoutConfirmed"
+                           @noClicked="showConfirmationPopup = false" />
+    </template>
+    <div class="maindiv basic_flexbox"
+         :style="{ width: sideBarwidth + 'px' }">
         <div class="pfp_div basic_flexbox">
-<img :src="imageurl" alt="Your Profile Picture" class="pfpimg">
+            <img :src="user.userProfilePic"
+                 alt="Your Profile Picture"
+                 class="pfpimg">
         </div>
         <div class="profile_info_div basic_flexbox">
-            <span class="userFullName">{{ userFullName }}</span>
+            <span class="userFullName">
+                {{ user.firstName }} {{ user.lastName }}
+            </span>
             <!-- <span class="userGithub">{{ userGithub }}</span> -->
         </div>
+        <button @click="showEditProfileModal = true"
         <button 
         @click="showEditProfileModal = true"
         class="editProfileButton material-symbols-outlined">
             edit
         </button>
 
-        <a href="#" class="signoutLink" @click="signoutClicked"> 
+
+        <a href="#"
+           class="signoutLink"
+           @click.prevent="signoutClicked">
             Sign Out
             <span class=" material-symbols-outlined">logout</span>
         </a>
     </div>
 
-<template v-if="showEditProfileModal">
-    <EditProfileModal @closeEditprofileModalClicked="showEditProfileModal = !showEditProfileModal"></EditProfileModal>
-</template>
-
-
+    <template v-if="showEditProfileModal">
+        <EditProfileModal @closeEditprofileModalClicked="showEditProfileModal = !showEditProfileModal"></EditProfileModal>
+    </template>
 </template>
 
 <script>
 import EditProfileModal from './EditProfileModal.vue'
+import confirmationPopup from './confirmationPopup.vue';
+
+
+
+import { onSnapshot, doc } from "firebase/firestore";
+import { db } from "@/firebase/firebase";
 
 import { signOut } from "firebase/auth";
 import { auth } from "@/firebase/firebase";
@@ -35,14 +53,19 @@ import firebaseService from "@/firebase/firebaseService";
 
 
 export default {
-    components:{EditProfileModal},
-    data(){
-        return{
-            imageurl: firebaseService.user.photoURL,
-            userFullName: firebaseService.user.displayName,
+    components: { EditProfileModal, confirmationPopup },
+    data() {
+        return {
             showEditProfileModal: false,
+            showConfirmationPopup: false,
+
+            user: {
+                firstName: "",
+                lastName: "",
+                userProfilePic: "",
+            },
         }
-        
+
     },
     props: {
         sideBarwidth: {
@@ -50,13 +73,32 @@ export default {
             required: true,
         }
     },
-    mounted (){
-        // console.log(userFullName)    
-        // console.log(firebaseService.user)
+    computed: {
+        confirmSignout() {
+            return `Are you sure you want to sign out?`;
+        },
 
     },
-    methods:{
+    mounted() {
+        const userRef = doc(db, "users", firebaseService.user.uid);
+        onSnapshot(userRef, (snapshot) => {
+            const userData = snapshot.data();
+            if (userData) {
+                this.user.firstName = userData.firstName;
+                this.user.lastName = userData.lastName;
+                this.user.userProfilePic = userData.userProfilePic;
+            }
+        });
+
+    },
+    methods: {
         signoutClicked() {
+            console.log(firebaseService.user);
+            this.showConfirmationPopup = true;
+        },
+        signoutConfirmed() {
+            this.showconfirmSignoutPopup = false
+
             signOut(auth)
                 .then(() => {
                     // Successful sign-out
@@ -65,7 +107,7 @@ export default {
                 .catch((error) => {
                     // Handle sign-out error
                 });
-            }
+        }
     }
 }
 
