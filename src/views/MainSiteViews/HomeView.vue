@@ -37,8 +37,10 @@ import LoginSignupPopup from '../../components/MainSiteComps/LoginSignupPopup.vu
 
 
 import { signInWithPopup, GithubAuthProvider } from "firebase/auth";
-import { auth, provider } from '@/firebase/firebase';
+import { auth, provider, db } from '@/firebase/firebase';
 
+
+import { getFirestore, doc, setDoc } from "firebase/firestore";
 
 
 
@@ -89,12 +91,40 @@ export default {
 
                     // The signed-in user info.
                     const user = result.user;
-                    console.log(user);
-
+                    // console.log(user);
+                          // Separate the displayName into firstName and lastName
+                    const displayName = user.displayName;
+                    const nameParts = displayName.split(" ");
+                    const firstName = nameParts[0];
+                    const lastName = nameParts.slice(1).join(" ");
                     // Close the GitHub Login Popup
                     this.LogSignPopupVisible = false
+                        // Create a document in the "users" collection with the user's data
+                    // const db = getFirestore();
+                    const userRef = doc(db, "users", user.uid);
 
-                    this.$router.push('/dashboard'); // Redirect to the root page
+                    setDoc(userRef, {
+                        // displayName: user.displayName,
+                        firstName: firstName,
+                        lastName: lastName,
+                        email: user.email,
+                        // githubUsername: user.reloadUserInfo.screenname,
+                        // Other user data you want to store
+                        userProfilePic: user.photoURL
+                    })
+                        .then(() => {
+                            // Document created successfully
+                            console.log("User document created in Firestore");
+
+                            // Redirect to the root page or update the logic based on your requirements
+                            // this.$router.push('/dashboard'); // Redirect to the root page
+                            this.$router.push("/dashboard");
+                        })
+                        .catch((error) => {
+                            // Handle any errors that occur during document creation
+                            console.error("Error creating user document:", error);
+                        });
+
 
                     
                     // IdP data available using getAdditionalUserInfo(result)
