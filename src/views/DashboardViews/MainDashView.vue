@@ -62,7 +62,7 @@ export default {
     padding-top: 1rem;
     padding-left: 1rem;
     padding-right: 1rem;
-  font-family: "Ysabeau";
+  font-family: var(--default-font);
 
 }
 

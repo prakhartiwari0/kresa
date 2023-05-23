@@ -64,7 +64,7 @@ margin: 5rem;
     width: 15rem;
     border-radius: 1rem;
     background-color: #171515;
-    font-family: "Ysabeau";
+    font-family: var(--default-font);
     
     justify-content: center;
     align-items: center;

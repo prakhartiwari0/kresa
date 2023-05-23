@@ -6,7 +6,7 @@
     <div class="editprofilemodalbackcover">
 
         <dialog ref="editprofilemodal_ref"
-                class="editprofilemodal">
+                class="editprofilemodal default_modal">
             <button @click="$emit('closeEditprofileModalClicked')"
                     class="closeeditprofilemodal_button actionbutton material-symbols-outlined">close</button>
 
@@ -29,10 +29,7 @@
             <input ref="userLastName" type="text" id="userLastName"  v-model="editedUserDetails.lastName" class="default_textInput">
 
         
-            <h2>Enter Profile Details</h2>
-
-
-            <button class="default_button">Submit</button>
+            <button class="default_button saveEditedDetailsButton" 
             :disabled="!hasChanges"
             @click.prevent="editedProfileSaveClicked">Save</button>
 
@@ -235,8 +232,10 @@ export default {
 </script>
 
 <style>
+
+
 .editprofilemodal::backdrop {
-    position: fixed;
+    /* position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
@@ -246,25 +245,57 @@ export default {
     z-index: 5;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
 }
 
 
 .editprofilemodal {
-    width: 60%;
-    display: flex;
+    /* width: 60%; */
+    /* display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: whitesmoke;
     border: none;
     border-radius: 2rem;
-    padding: 1rem;
+    padding: 5rem;
+    margin: auto; */
+}
 
-    margin: auto;
+.editProfileModal_pfp_edit_div {
+    width: 10rem;
+    position: relative;
+}
+.editProfileModal_pfp_preview_img{
+    border-radius: 100%;
+    width: 100%;
+    padding: 1rem;
 }
 
 
+.editProfileModal_pfp_edit_div label {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 100%;
+    cursor: pointer;
+    padding: 0.4rem;
+    user-select: none;
+}
+.editProfileModal_pfp_edit_div label:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.1);
+
+}
+.editProfileModal_pfp_edit_div input {
+    display: none;
+}
+
+.editProfileModal_pfp_edit_div .material-icons {
+  font-size: 24px; /* Adjust the font size as needed */
+  color: #000; /* Adjust the color as needed */
+}
+    
 .eachinputgroup {
     margin-block: 1rem;
     width: 60%;
@@ -273,6 +304,8 @@ export default {
     align-items: flex-start;
 
 }
+
+
 
 .eachinputgroup label {
     margin-block: 0.2rem;
@@ -297,26 +330,25 @@ export default {
     outline: none;
 }
 
+
+
+
+
 .closeeditprofilemodal_button {
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
     top: 1rem;
     right: 1rem;
-    background-color: transparent;
-    border: none;
-    font-size: 2rem;
-    border-radius: 100%;
-    height: 3rem;
-    width: 3rem;
-    color: black;
-
-    user-select: none;
 }
 
-.closeeditprofilemodal_button:hover {
-    color: white;
-    background-color: rgba(0, 0, 0, 0.472);
-}</style>
+
+.saveEditedDetailsButton{
+    margin-top: 1rem;
+}
+.saveEditedDetailsButton:disabled{
+
+
+    border-color: grey;
+    background-color: transparent;
+    cursor: default;
+    color: grey;
+}
+</style>

@@ -3,7 +3,7 @@
 
         <button 
         @click="$emit('closeprojectStatsClicked')"
-        class="backtodashboardbutton material-symbols-outlined">arrow_back</button>
+        class="backtodashboardbutton actionbutton material-symbols-outlined">arrow_back</button>
         Very good project stats
         
     </div>
@@ -43,17 +43,9 @@ export default{
 
 
 .backtodashboardbutton{
-    width: 3rem;
-    height: 3rem;
-    background-color: transparent;
-    color: rgba(128, 128, 128, 0.786);
-    cursor: pointer;
-    border-radius: 100%;
-    border: none;
-    
+
 }
 .backtodashboardbutton:hover{
-    background-color: rgba(128, 128, 128, 0.127);
 }
 
 </style>

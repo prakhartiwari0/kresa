@@ -1,10 +1,10 @@
 <template>
     <div class="addprojectmodalbackcover">
 
-        <dialog ref="addprojectmodal_ref" class="addprojectmodal">
+        <dialog ref="addprojectmodal_ref" class="default_modal addprojectmodal">
             <button 
             @click="$emit('closeAddprojectModalClicked')"
-            class="closeaddprojectmodal_button  material-symbols-outlined">close</button>
+            class="closeaddprojectmodal_button actionbutton material-symbols-outlined">close</button>
             <h2>Enter project Details</h2>
             <div class="eachinputgroup">
                 <label for="project-logo">Logo:</label>
@@ -17,19 +17,22 @@
                 <label for="project-name">Name:</label>
                 <input id="project-name"
                     ref="nameinputproject_ref"
-                       type="text">
+                       type="text"
+                       class="default_textInput">
 
             </div>
             <div class="eachinputgroup">
                 <label for="project-url">URL:</label>
                 <input id="project-url"
-                       type="text">
+                       type="text"
+                           class="default_textInput">
 
             </div>
             <div class="eachinputgroup">
                 <label for="project-description">Description:</label>
                 <textarea id="project-description"
-                          rows="4" ></textarea>
+                          rows="4"
+                           class="default_textInput" ></textarea>
 
             </div>
 
@@ -58,37 +61,19 @@ export default {
 
 <style>
 .addprojectmodal::backdrop {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.331);
-    z-index: 5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 
 .addprojectmodal {
-    width: 60%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: whitesmoke;
-    border: none;
-    border-radius: 2rem;
+    min-width: 40%;
     padding: 1rem;
-
-    margin: auto;
+    
 }
 
 
 .eachinputgroup{
-    margin-block: 1rem;
+    padding: .5rem;
+    margin-block: .5rem;
     width: 60%;
     display: flex;
     flex-direction: column;
@@ -96,43 +81,21 @@ export default {
     
 }
 .eachinputgroup label{
-    margin-block: 0.2rem;
     margin-inline: 0.5rem;
 }
 .eachinputgroup input[type="text"],.eachinputgroup textarea {
-    width: 100%;
-    border-radius: 1rem;
-    padding: 0.5rem;
-    border: rgba(128, 128, 128, 0.55) 2px solid;
+    font-size: 1rem;
 }
 .eachinputgroup textarea {
     resize: none;
-    padding: 1rem;
+    padding: .5rem;
 
 }
-.eachinputgroup input[type="text"]:focus{
-    outline: none;
-}
+
 
 .closeaddprojectmodal_button {
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
     top: 1rem;
     right: 1rem;
-    background-color: transparent;
-    border: none;
-    font-size: 2rem;
-    border-radius: 100%;
-    height: 3rem;
-    width: 3rem;
-    color: black;
 }
 
-.closeaddprojectmodal_button:hover {
-    color: white;
-    background-color: rgba(0, 0, 0, 0.472);
-}
 </style>

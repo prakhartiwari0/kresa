@@ -2,6 +2,8 @@
 
 
 body{
+    /* background-color: var(--light-lavender); */
+    /* background-color: var(--lavender); */
     background-color: var(--light-lavender);
     color: var(--k-blue);
     display: flex;

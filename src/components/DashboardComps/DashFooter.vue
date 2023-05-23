@@ -20,17 +20,19 @@ export default {
 <style>
 
 .dashfoot{
+
+    background-color: var(--dark-k-blue);
     width: 100%;
     flex-direction: row;
     margin-top: 1rem;
     justify-content: space-evenly;
-    /* height: 5    rem; */
+    min-height: 7rem;
 }
 .logodiv{
     width: 10%;
 }
 .dashfooter_logo{
-    opacity: 0.7;
+    opacity: 0.9;
     width: 100%;
 }
 .dashfooter_logo:hover{
@@ -38,7 +40,7 @@ export default {
 }
 
 .contribute_link{
-    opacity: 0.7;
+    opacity: 0.9;
     text-decoration: none;
 }
 .contribute_link:hover{
