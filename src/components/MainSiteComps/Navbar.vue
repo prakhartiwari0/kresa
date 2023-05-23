@@ -18,7 +18,7 @@
             </a>
             <template v-if="user" class="navlinks">
                 <router-link to="dashboard" class="navlinks" title="Dashboard">
-                    <img :src="user.photoURL" alt="profile_pic" class="profile_picture">
+                    <img :src="userProfilePic" alt="profile_pic" class="profile_picture">
                 </router-link>
             </template>
             <template v-else>
@@ -33,7 +33,11 @@
 <script>
 
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from '@/firebase/firebase';
+import { db, auth } from '@/firebase/firebase';
+import { doc, onSnapshot } from "firebase/firestore";
+
+
+
 export default {
     data() {
         return {
@@ -44,6 +48,8 @@ export default {
             ],
             ifnotloggedin: ["Get Started", "../../assets/getstarted.svg"],
             user: null,
+
+            userProfilePic: "",
         }
     },
     methods: {
@@ -53,10 +59,18 @@ export default {
 
     }, 
     mounted() {
-        this.iconsdir = '../src/assets/'
         onAuthStateChanged(auth, (user) => {
             this.user = user;
-            console.log(user);
+            // console.log(user);
+            // console.log(db);
+        const userRef = doc(db, "users", this.user.uid);
+        onSnapshot(userRef, (snapshot) => {
+            const userData = snapshot.data();
+            if (userData) {
+                this.userProfilePic = userData.userProfilePic;
+            }
+            // console.log(this.user.firstName);
+        });
         });
     },
 
