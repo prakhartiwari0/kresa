@@ -40,7 +40,7 @@ import { signInWithPopup, GithubAuthProvider } from "firebase/auth";
 import { auth, provider, db } from '@/firebase/firebase';
 
 
-import { getFirestore, doc, setDoc } from "firebase/firestore";
+import { getFirestore, doc, getDoc,setDoc } from "firebase/firestore";
 
 
 
@@ -59,7 +59,7 @@ export default {
     mounted(){
 
         auth.onAuthStateChanged((user) => {
-            this.user = user;
+            console.log(user);
         });
     },
     
@@ -82,66 +82,53 @@ export default {
         },
         
         signInWithGitHub() {
-
             signInWithPopup(auth, provider)
                 .then((result) => {
-                    // This gives you a GitHub Access Token. You can use it to access the GitHub API.
-                    const credential = GithubAuthProvider.credentialFromResult(result);
-                    const token = credential.accessToken;
-
-                    // The signed-in user info.
                     const user = result.user;
-                    // console.log(user);
-                          // Separate the displayName into firstName and lastName
-                    const displayName = user.displayName;
-                    const nameParts = displayName.split(" ");
-                    const firstName = nameParts[0];
-                    const lastName = nameParts.slice(1).join(" ");
-                    // Close the GitHub Login Popup
-                    this.LogSignPopupVisible = false
-                        // Create a document in the "users" collection with the user's data
-                    // const db = getFirestore();
                     const userRef = doc(db, "users", user.uid);
 
-                    setDoc(userRef, {
-                        // displayName: user.displayName,
-                        firstName: firstName,
-                        lastName: lastName,
-                        email: user.email,
-                        // githubUsername: user.reloadUserInfo.screenname,
-                        // Other user data you want to store
-                        userProfilePic: user.photoURL
-                    })
-                        .then(() => {
-                            // Document created successfully
-                            console.log("User document created in Firestore");
+                    // Check if the user document exists
+                    getDoc(userRef)
+                        .then((docSnapshot) => {
+                            if (docSnapshot.exists()) {
+                                console.log("User already exists, logging in...");
+                                this.LogSignPopupVisible = false;
+                                this.$router.push("/dashboard"); // Redirect to the dashboard or desired page
+                            } else {
+                                const displayName = user.displayName;
+                                const nameParts = displayName.split(" ");
+                                const firstName = nameParts[0];
+                                const lastName = nameParts.slice(1).join(" ");
 
-                            // Redirect to the root page or update the logic based on your requirements
-                            // this.$router.push('/dashboard'); // Redirect to the root page
-                            this.$router.push("/dashboard");
+                                // Create a new document with user data
+                                setDoc(userRef, {
+                                    firstName: firstName,
+                                    lastName: lastName,
+                                    email: user.email,
+                                    userProfilePic: user.photoURL
+                                })
+                                    .then(() => {
+                                        console.log("User document created in Firestore");
+                                        this.LogSignPopupVisible = false;
+                                        this.$router.push("/dashboard"); // Redirect to the dashboard or desired page
+                                    })
+                                    .catch((error) => {
+                                        console.error("Error creating user document:", error);
+                                    });
+                            }
                         })
                         .catch((error) => {
-                            // Handle any errors that occur during document creation
-                            console.error("Error creating user document:", error);
+                            console.error("Error checking user document:", error);
                         });
-
-
-                    
-                    // IdP data available using getAdditionalUserInfo(result)
-                    // ...
-                }).catch((error) => {
-                    // Handle Errors here.
+                })
+                .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
                     console.log(errorMessage);
-                    // The email of the user's account used.
                     const email = error.email;
-                    // The AuthCredential type that was used.
                     const credential = GithubAuthProvider.credentialFromError(error);
-                    // ...
-                })
-        },
-
+                });
+            },
 
     }
 }
