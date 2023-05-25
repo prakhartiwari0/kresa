@@ -3,7 +3,7 @@
         <span>{{ msg }}</span>
         <div class="yesnobuttonsdiv">
             <button class="yesbutton default_button" @click="$emit('yesClicked')">Yes</button>
-            <button class="nobutton default_button" @click="$emit('noClicked')">No</button>
+            <button class="nobutton default_button" ref="nobutton" @click="$emit('noClicked')">No</button>
 
         </div>
     </dialog>
@@ -18,6 +18,7 @@ export default{
     },
     mounted(){
         this.$refs.confirmationPopup.showModal()
+        this.$refs.nobutton.focus()
     },
     props:{
             msg: {
@@ -30,19 +31,6 @@ export default{
 </script>
 
 <style>
-.confirmationPopupDialog::backdrop{
-    /* background-color: rgba(0, 0, 0, 0.5); */
-}
-.confirmationPopupDialog{
-/* display: flex;
-flex-direction: column;
-border: none;
-padding: 1rem;
-margin: auto;
-
-border-radius: 1rem; */
-}
-
 
 
 .yesnobuttonsdiv{
