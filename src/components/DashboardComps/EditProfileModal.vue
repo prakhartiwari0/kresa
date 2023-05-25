@@ -40,14 +40,8 @@
 
 <script>
 import confirmationPopup from "./confirmationPopup.vue";
-
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from '@/firebase/firebase';
-
 import firebaseService from "@/firebase/firebaseService";
-
-import { collection, doc, addDoc, deleteDoc, updateDoc, setDoc, onSnapshot } from "firebase/firestore";
-
+import {doc, updateDoc, onSnapshot } from "firebase/firestore";
 import {db, storage } from "@/firebase/firebase";
 
 
@@ -179,7 +173,7 @@ export default {
                 try {
                     // Delete the previous profile picture if it exists
                     if (hasProfilePicChanged && this.user.userProfilePic) {
-                        const prevStorageRef = ref(storage, `userProfilePictures/${userId}/profilepic.jpg`);
+                        const prevStorageRef = ref(storage, `usersAssets/${userId}/profilepic.jpg`);
 
                         // Check if the previous profile picture exists
                         const prevProfilePicExists = await getDownloadURL(prevStorageRef)
@@ -195,7 +189,7 @@ export default {
                     // Upload the profile picture to Firebase Storage if selected
                     let downloadURL = this.user.userProfilePic;
                     if (hasProfilePicChanged) {
-                        const storageRef = ref(storage, `userProfilePictures/${userId}/profilepic.jpg`);
+                        const storageRef = ref(storage, `usersAssets/${userId}/profilepic.jpg`);
                         await uploadBytes(storageRef, userProfilePicFile);
                         downloadURL = await getDownloadURL(storageRef);
                     }
@@ -233,33 +227,9 @@ export default {
 
 <style>
 
-
-.editprofilemodal::backdrop {
-    /* position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.331);
-    z-index: 5;
-    display: flex;
-    justify-content: center;
-    align-items: center; */
-}
-
-
 .editprofilemodal {
-    /* width: 60%; */
-    /* display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: whitesmoke;
-    border: none;
-    border-radius: 2rem;
-    padding: 5rem;
-    margin: auto; */
+    position: fixed;
+
 }
 
 .editProfileModal_pfp_edit_div {
@@ -289,11 +259,6 @@ export default {
 }
 .editProfileModal_pfp_edit_div input {
     display: none;
-}
-
-.editProfileModal_pfp_edit_div .material-icons {
-  font-size: 24px; /* Adjust the font size as needed */
-  color: #000; /* Adjust the color as needed */
 }
     
 .eachinputgroup {
@@ -342,13 +307,5 @@ export default {
 
 .saveEditedDetailsButton{
     margin-top: 1rem;
-}
-.saveEditedDetailsButton:disabled{
-
-
-    border-color: grey;
-    background-color: transparent;
-    cursor: default;
-    color: grey;
 }
 </style>

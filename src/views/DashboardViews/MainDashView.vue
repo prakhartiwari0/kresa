@@ -1,8 +1,10 @@
 <template>
-    <div class="dashboarddiv" :class="{ unselectable: showprojectStats }">
-        <SideComp :sideBarwidth="sidebarWidth" />
-        <div class="statsprojectsdiv"
-             :style="{ marginLeft: (sidebarWidth - ((90 / 100) * sidebarWidth)) + 'px' }">
+    <div class="dashboarddiv">
+        <SideComp :dynamicStylesFromMainDashView="sideCompStyles"
+        :projectStatsOpened="this.showprojectStats" :projectID="openedProjectID"
+
+       />
+        <div class="statsprojectsdiv">
                 
             <template  v-if="showprojectStats">
                 <projectStats @closeprojectStatsClicked="
@@ -12,7 +14,7 @@
         <template v-else>
 
             <OverallStats />
-            <projectsList @openprojectStatsClicked="onopenprojectStatsClicked($event)"/>
+            <projectsList @openprojectStatsClicked="onOpenProjectStatsClicked($event)"/>
         </template>
     
         </div>
@@ -30,25 +32,67 @@ import DashFooter from '../../components/DashboardComps/DashFooter.vue'
 import projectStats from '../../components/DashboardComps/projectStats.vue'
 
 
+
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
+import { db } from "@/firebase/firebase";
+
+import firebaseService from "@/firebase/firebaseService";
+
+
 export default {
     components: { SideComp, projectsList, OverallStats, DashFooter, projectStats },
     data() {
         return {
             showprojectStats: false,
-            sidebarWidth: 300,
+            userID: firebaseService.user.uid,
+            openedProjectID: null,
         }
     },
-    methods: {
-        onopenprojectStatsClicked(projectName) {
-            this.showprojectStats = true
-            console.log(this.showprojectStats);
-            console.log('Selected project:', projectName);
-        },
-        closeprojectStats2() {
-            console.log(this.showprojectStats);
-        }
+    computed: {
+        async sideCompProperties(projectID = null){
+            
+            let sideBarContent = {
+                mainTopImage: "",
+                completeName: "",
+            }
+            if (this.showprojectStats === false) {
+                const userRef = doc(db, "users", firebaseService.user.uid);
+                onSnapshot(userRef, (snapshot) => {
+                    const userData = snapshot.data();
+                    if (userData) {
+                        sideBarContent.completeName = `${userData.firstName} ${userData.lastName}`
+                        sideBarContent.mainTopImage = userData.userProfilePic;
+                    }
+                });
+            }
+            else{
+                const projectRef = doc(db, "users", this.userID, "projects", projectID);
+                const projectSnap = await getDoc(projectRef);
+                let addedProjectData = projectSnap.data()
         
-
+                sideBarContent.completeName = addedProjectData.projectName
+                sideBarContent.mainTopImage = addedProjectData.projectLogo
+        
+        
+            }
+        
+            return sideBarContent
+        },  
+        sideCompStyles() {
+            const sidebarWidth = 300; // Set a default value if sidebarWidth is not available yet
+            return {
+                "--sidebar-width": `${sidebarWidth}px`,
+                "--sidebar-margin-right": `${(sidebarWidth - (90 / 100) * sidebarWidth)}px`,
+            };
+        },
+    },
+    methods: {
+        onOpenProjectStatsClicked(projectID) {
+            this.showprojectStats = true
+            this.openedProjectID = projectID
+            // this.loadSideBarContent(projectID)
+            console.log('Selected project:', this.openedProjectID);
+        }
     }
 
 }
@@ -78,7 +122,4 @@ export default {
     flex-direction: column;
 }
 
-.unselectable{
-    user-select: none;
-}
 </style>

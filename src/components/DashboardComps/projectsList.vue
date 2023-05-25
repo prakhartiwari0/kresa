@@ -13,18 +13,31 @@
     <div class="projectslistdiv">
         
         <div class="projectdiv"
-        @click="$emit('openprojectStatsClicked', project.projectName)"
-        v-for="(project, index) in projects">
-        <img :src="project.projecticonurl"
-        :alt="project.projectname">
-        <span>{{ project.projectname }}</span>
+        v-for="(project, index) in projects"
+        @click="openProjectStatsClicked(project.dataAttributeProjectId)"
+        :data-projectid="project.dataAttributeProjectId"
+        >
+        <img :src="project.logo"
+        :alt="project.name">
+        <span>{{ project.name }}</span>
     </div>
-        <AddprojectModal v-if="showAddprojectModal" @closeAddprojectModalClicked="showAddprojectModal = false"/>  
+        <AddprojectModal 
+        @projectAdded="newProjectAdded"
+        v-if="showAddprojectModal" @closeAddprojectModalClicked="showAddprojectModal = false"/>  
     </div>
 </div>
 </template>
 
 <script>
+
+import firebaseService from "@/firebase/firebaseService";
+
+
+import { collection, addDoc, setDoc, doc, updateDoc, getDoc, getDocs } from "firebase/firestore";
+import { db, auth, storage } from "@/firebase/firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
+
 import AddprojectModal from './AddprojectModal.vue';
 
 export default {
@@ -32,46 +45,18 @@ export default {
     data() {
         return {
             showAddprojectModal: false,
-
+            userID: firebaseService.user.uid,
             projects: [
-                {
-                    projectname: "Arito",
-                    projecticonurl: "../../../src/assets/examplefiles/Arito_icon.png",
-                },
-                {
-                    projectname: "Arito",
-                    projecticonurl: "../../../src/assets/examplefiles/Arito_icon.png",
-                },
-                {
-                    projectname: "Arito",
-                    projecticonurl: "../../../src/assets/examplefiles/Arito_icon.png",
-                },
-                {
-                    projectname: "Arito",
-                    projecticonurl: "../../../src/assets/examplefiles/Arito_icon.png",
-                },
-                {
-                    projectname: "Arito",
-                    projecticonurl: "../../../src/assets/examplefiles/Arito_icon.png",
-                },
-                {
-                    projectname: "Arito",
-                    projecticonurl: "../../../src/assets/examplefiles/Arito_icon.png",
-                },
-                {
-                    projectname: "Arito",
-                    projecticonurl: "../../../src/assets/examplefiles/Arito_icon.png",
-                },
-                {
-                    projectname: "Arito",
-                    projecticonurl: "../../../src/assets/examplefiles/Arito_icon.png",
-                },
-                {
-                    projectname: "Arito",
-                    projecticonurl: "../../../src/assets/examplefiles/Arito_icon.png",
-                },
+                // {
+                //     name: "Arito",
+                //     logo: "../../../src/assets/examplefiles/Arito_icon.png",
+                //     dataAttributeProjectId: null,
+                // },
             ]
         }
+    },
+    mounted(){
+        this.loadProjects()
     },
     methods: {
         // openprojectStatsClicked(projectName) {
@@ -79,8 +64,47 @@ export default {
         // },
         openAddprojectModalClicked(){
             this.showAddprojectModal = true
+        },
+        async loadProjects(){
+            const projectsRef = collection(db, "users", this.userID, "projects");
+            const projectSnapshot = await getDocs(projectsRef);
+
+            projectSnapshot.forEach((doc) => {
+                const projectData = doc.data();
+                // console.log(projectData);
+                const projectDetailsObject = {
+                    name: projectData.projectName,
+                    logo: projectData.projectLogo,
+                    dataAttributeProjectId: projectData.dataAttributeProjectId
+                };
+                this.projects.push(projectDetailsObject);
+            });
+        },
+        async loadNewProject(projectID){
+            const projectRef = doc(db, "users", this.userID, "projects", projectID);
+            const projectSnap = await getDoc(projectRef);
+            let addedProjectData = projectSnap.data()
+
+            let addedProjectDetailsObject = {
+                name: addedProjectData.projectName,
+                logo: addedProjectData.projectLogo,
+                dataAttributeProjectId: addedProjectData.dataAttributeProjectId
+            }
+
+            this.projects.push(addedProjectDetailsObject)
+
+        },
+        async newProjectAdded(projectID){
+            // const newProjectRef = collection(db, "users", userID, "projects");
+            console.log("Project has been added, the id is:",projectID);
+
+            await this.loadNewProject(projectID);
+        },
+        openProjectStatsClicked(projectID){
+            this.$emit('openprojectStatsClicked', projectID)
         }
-    }
+
+    },
 
 
 }

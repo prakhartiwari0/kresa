@@ -5,17 +5,17 @@
                            @noClicked="showConfirmationPopup = false" />
     </template>
     <div class="maindiv basic_flexbox"
-         :style="{ width: sideBarwidth + 'px' }">
+         :style="dynamicStylesFromMainDashView">
         <div class="pfp_div basic_flexbox">
-            <img :src="user.userProfilePic"
+            <img :src="sideBarContent.mainTopImage"
                  alt="Your Profile Picture"
                  class="pfpimg">
         </div>
         <div class="profile_info_div basic_flexbox">
-            <span class="userFullName">
-                {{ user.firstName }} {{ user.lastName }}
+            <span class="sideBarContentFullName">
+                {{ sideBarContent.fullName }}
             </span>
-            <!-- <span class="userGithub">{{ userGithub }}</span> -->
+            <!-- <span class="sideBarContentGithub">{{ sideBarContentGithub }}</span> -->
         </div>
         <button @click="showEditProfileModal = true"
                 class="editProfileButton actionbutton material-symbols-outlined">
@@ -42,12 +42,16 @@ import confirmationPopup from './confirmationPopup.vue';
 
 
 
-import { onSnapshot, doc } from "firebase/firestore";
-import { db } from "@/firebase/firebase";
+import firebaseService from "@/firebase/firebaseService";
 
 import { signOut } from "firebase/auth";
-import { auth } from "@/firebase/firebase";
-import firebaseService from "@/firebase/firebaseService";
+
+
+
+import { collection, addDoc, setDoc, doc, updateDoc, getDoc, getDocs, onSnapshot } from "firebase/firestore";
+import { db, auth, storage } from "@/firebase/firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
 
 
 export default {
@@ -56,18 +60,30 @@ export default {
         return {
             showEditProfileModal: false,
             showConfirmationPopup: false,
+            userID: firebaseService.user.uid,
 
-            user: {
-                firstName: "",
-                lastName: "",
-                userProfilePic: "",
+            sideBarContent: {
+                fullName: "",
+                mainTopImage: "",
+            },
+            userProfileData: {
+                fullName: "",
+                mainTopImage: "",
             },
         }
 
     },
     props: {
-        sideBarwidth: {
-            type: Number,
+        dynamicStylesFromMainDashView:{
+            type: Object,
+            required: true,
+        },
+        projectStatsOpened:{
+            type: Boolean,
+            required: true,
+        },
+        projectID:{
+            type: String,
             required: true,
         }
     },
@@ -82,16 +98,44 @@ export default {
         onSnapshot(userRef, (snapshot) => {
             const userData = snapshot.data();
             if (userData) {
-                this.user.firstName = userData.firstName;
-                this.user.lastName = userData.lastName;
-                this.user.userProfilePic = userData.userProfilePic;
+
+                // This will be be NOT updated
+                this.userProfileData.fullName = `${userData.firstName} ${userData.lastName}`
+                this.userProfileData.mainTopImage = userData.userProfilePic;
+                
+                // This will be updated
+                this.sideBarContent.fullName = `${userData.firstName} ${userData.lastName}`
+                this.sideBarContent.mainTopImage = userData.userProfilePic;
+                
             }
         });
-
+        
+    },
+    async updated(){
+        if (this.projectStatsOpened) {
+            console.log("Project Stats opened of ID", this.projectID);
+            
+            
+            const projectRef = doc(db, "users", this.userID, "projects", this.projectID);
+            const projectSnap = await getDoc(projectRef);
+            let addedProjectData = projectSnap.data()
+            
+            
+            console.log("Project Data", addedProjectData);
+            this.sideBarContent.fullName = addedProjectData.projectName
+            this.sideBarContent.mainTopImage = addedProjectData.projectLogo;
+            
+        }
+        else{
+            this.sideBarContent.fullName = this.userProfileData.fullName
+            this.sideBarContent.mainTopImage = this.userProfileData.mainTopImage;
+            console.log("Projects Stats Closed");
+        }
+        
     },
     methods: {
         signoutClicked() {
-            console.log(firebaseService.user);
+            console.log(firebaseService.sideBarContent);
             this.showConfirmationPopup = true;
         },
         signoutConfirmed() {
@@ -113,10 +157,9 @@ export default {
 
 <style>
 .maindiv {
-    /* border: 2px solid black; */
-    /* box-shadow: 0px 0px 7px 1px black; */
     box-shadow: 0px 7px 10px 0px black;
-
+    width: var(--sidebar-width);
+    margin-right: var(--sidebar-margin-right);
     position: sticky;
     top: 1rem;
     left: 0;
@@ -125,8 +168,6 @@ export default {
     flex-direction: column;
     justify-content: flex-start;
 
-    /* background: rgb(16,99,148);
-    background: linear-gradient(0deg, rgba(16,99,148,1) 0%, rgba(16,99,148,1) 25%, rgba(64,139,184,1) 50%, rgba(99,169,210,1) 75%, rgba(116,183,222,1) 89%, rgba(132,196,234,1) 100%); */
     background-color: var(--light-k-blue);
     border-radius: 2rem;
     height: 90vh;
@@ -158,7 +199,7 @@ export default {
     padding: 0.8rem;
 }
 
-.profile_info_div .userFullName {
+.profile_info_div .sideBarContentFullName {
     font-size: 1.5rem;
 }
 
@@ -179,8 +220,7 @@ export default {
     right: auto;
     text-decoration: none;
     border-radius: 1rem;
-    /* padding: .5rem; */
-
+    transition: .2s ease;
     color: var(--lightest-lavender);
 
     display: flex;
