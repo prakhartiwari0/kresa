@@ -118,7 +118,7 @@ export default {
     text-decoration: none;
     font-size: 2.5rem;
     color: var(--k-blue);
-    font-family: Ysabeau;
+    font-family: var(--default-font);
     margin: 1rem;
     transition: 0.3s ease;
     padding: 1rem;

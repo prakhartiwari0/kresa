@@ -14,11 +14,10 @@ export default{
 <style>
 
 footer{
+    font-size: var(--default-font);
     flex-direction: column;
     width: 100%;
     padding: 15px 10px;
-    /* position: fixed;
-    bottom: 0; */
     background-color: var(--k-blue);
     color: var(--light-lavender);
 }

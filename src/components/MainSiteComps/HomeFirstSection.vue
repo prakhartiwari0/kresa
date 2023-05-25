@@ -1,7 +1,7 @@
 <template>
             <div class="first_section ">
         
-                <h2 id="tagline">Get Feedback and Ratings of your Web Projects</h2>
+                <h2 id="tagline">Get Feedback and Ratings for your Web Projects</h2>
         <iframe id="frontyoutubevideo" src="https://www.youtube.com/embed/k1rwmHFkTeo?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </div>
 </template>
@@ -28,8 +28,8 @@ padding: 1rem;
 }
 
 h2#tagline{
-    font-family: Ysabeau;
-    font-size: 3.5rem ;
+    font-family: var(--default-font);
+    font-size: 3rem ;
     text-shadow: 12px 12x 12px black;
     text-align: center;
     width: 50%;
