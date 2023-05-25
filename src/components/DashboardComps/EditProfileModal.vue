@@ -122,7 +122,7 @@ export default {
             if (file && file.size > maxSizeKB * 1024) {
                 // File size exceeds the limit
                 alert(`File size exceeds the limit of ${maxSizeKB} KB`);
-                this.$refs.userProfilePic.value = null; // Clear the file input field
+                // this.$refs.userProfilePic.value = null; // Clear the file input field
                 return;
             }
 
@@ -130,7 +130,7 @@ export default {
             if (file && file.type !== "image/jpeg" && !file.name.toLowerCase().endsWith(".jpg")) {
                 // Invalid file type or extension
                 alert("Only JPG images are allowed");
-                this.$refs.userProfilePic.value = null; // Clear the file input field
+                // this.$refs.userProfilePic.value = null; // Clear the file input field
                 return;
             }
 
@@ -145,7 +145,7 @@ export default {
                     const targetDimension = width; // Target dimension for width and height
                     if (width !== targetDimension || height !== targetDimension) {
                     alert("Image must be in square ratio, where width and height are same");
-                    this.$refs.userProfilePic.value = null; // Clear the file input field
+                    // this.$refs.userProfilePic.value = null; // Clear the file input field
                     return;
                     }
 
@@ -171,7 +171,7 @@ export default {
             // Check if the values have changed
             const hasFirstNameChanged = userFirstName.trim() !== this.user.firstName.trim();
             const hasLastNameChanged = userLastName.trim() !== this.user.lastName.trim();
-            const hasProfilePicChanged = userProfilePicFile !== undefined;
+            const hasProfilePicChanged = userProfilePicFile !== this.user.userProfilePic;
 
             const userId = firebaseService.user.uid;
             // Perform the save functionality if any value has changed
