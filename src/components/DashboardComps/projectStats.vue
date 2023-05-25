@@ -19,8 +19,13 @@ export default{
 
         }
     },
+    props:{
+        projectID:{
+            type: String,
+            required: true
+        }
+    },
     created(){
-        console.log("Hellloo");
 
     },    
     methods: {
