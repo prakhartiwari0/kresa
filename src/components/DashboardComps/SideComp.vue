@@ -34,13 +34,17 @@
     <template v-if="showEditProfileModal">
         <EditProfileModal @closeEditprofileModalClicked="showEditProfileModal = !showEditProfileModal"></EditProfileModal>
     </template>
+
+    <template v-if="showProjectInfoModalClicked">
+        <editProjectInfo @closeeditProjectInfoModalClicked="showProjectInfoModal = !showProjectInfoModal"></editProjectInfo>
+    </template>
 </template>
 
 <script>
 import EditProfileModal from './EditProfileModal.vue'
 import confirmationPopup from './confirmationPopup.vue';
 
-
+import editProjectInfo from './editProjectInfo.vue';
 
 import firebaseService from "@/firebase/firebaseService";
 
@@ -55,10 +59,11 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 
 export default {
-    components: { EditProfileModal, confirmationPopup },
+    components: { EditProfileModal, confirmationPopup, editProjectInfo },
     data() {
         return {
             showEditProfileModal: false,
+            showProjectInfoModal: false,
             showConfirmationPopup: false,
             userID: firebaseService.user.uid,
 
@@ -113,15 +118,15 @@ export default {
     },
     async updated(){
         if (this.projectStatsOpened) {
-            console.log("Project Stats opened of ID", this.projectID);
+            // console.log("Project Stats opened of ID", this.projectID);
             
             
             const projectRef = doc(db, "users", this.userID, "projects", this.projectID);
             const projectSnap = await getDoc(projectRef);
             let addedProjectData = projectSnap.data()
             
+            // console.log("Project Data", addedProjectData);
             
-            console.log("Project Data", addedProjectData);
             this.sideBarContent.fullName = addedProjectData.projectName
             this.sideBarContent.mainTopImage = addedProjectData.projectLogo;
             
@@ -129,7 +134,7 @@ export default {
         else{
             this.sideBarContent.fullName = this.userProfileData.fullName
             this.sideBarContent.mainTopImage = this.userProfileData.mainTopImage;
-            console.log("Projects Stats Closed");
+            // console.log("Projects Stats Closed");
         }
         
     },

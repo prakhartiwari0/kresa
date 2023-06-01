@@ -1,28 +1,30 @@
 <template>
-    <div class="addprojectmodalbackcover">
+    <div class="editProjectInfomodalbackcover">
 
-        <dialog ref="addprojectmodal_ref" class="default_modal addprojectmodal">
-            <button 
-            @click="$emit('closeAddprojectModalClicked')"
-            class="closeaddprojectmodal_button actionbutton material-symbols-outlined">close</button>
+        <dialog ref="editProjectInfomodal_ref"
+                class="default_modal editProjectInfomodal">
+            <button @click="$emit('closeeditProjectInfoModalClicked')"
+                    class="closeeditProjectInfomodal_button actionbutton material-symbols-outlined">close</button>
             <h2>Enter Project Details</h2>
 
-            <div class="addProjectModal_logo_div">
-                
-                <label for="project_logo_input" class="material-symbols-outlined">edit</label>
-                <img :src="logoSelectedorNot() ? projectInfo.logoURL : '../src/assets/logos/4-blacknwhite.png'" alt="Project Logo" class="addProjectModal_logo_img">
-                <input
-                id="project_logo_input"
-                @change="handleFileSelection"
-                accept="image/jpeg"
-                ref="project_logo_input"
-                type="file"
-                name="project_logo_input">
+            <div class="editProjectInfoModal_logo_div">
+
+                <label for="project_logo_input"
+                       class="material-symbols-outlined">edit</label>
+                <img :src="logoSelectedorNot() ? projectInfo.logoURL : '../src/assets/logos/4-blacknwhite.png'"
+                     alt="Project Logo"
+                     class="editProjectInfoModal_logo_img">
+                <input id="project_logo_input"
+                       @change="handleFileSelection"
+                       accept="image/jpeg"
+                       ref="project_logo_input"
+                       type="file"
+                       name="project_logo_input">
             </div>
             <div class="addpm_eachinputgroup">
                 <label for="projectNameInput">Name:</label>
                 <input id="projectNameInput"
-                    ref="nameinputproject_ref"
+                       ref="nameinputproject_ref"
                        type="text"
                        v-model="projectInfo.name"
                        class="default_textInput">
@@ -31,25 +33,24 @@
             <div class="addpm_eachinputgroup">
                 <label for="projectURLInput">URL:</label>
                 <input id="projectURLInput"
-                v-model="projectInfo.url"
-                type="text"
-                class="default_textInput">
+                       v-model="projectInfo.url"
+                       type="text"
+                       class="default_textInput">
 
             </div>
             <div class="addpm_eachinputgroup">
                 <label for="projectDescriptionInput">Description:</label>
-                <textarea
-                maxlength="90"
-                id="projectDescriptionInput"
-                v-model="projectInfo.description"
+                <textarea maxlength="90"
+                          id="projectDescriptionInput"
+                          v-model="projectInfo.description"
                           rows="4"
-                           class="default_textInput" ></textarea>
+                          class="default_textInput"></textarea>
 
             </div>
 
-                <button class="default_button" 
-                :disabled="!allProjectInfoEntered"
-                @click="submitProject">Add Project</button>
+            <button class="default_button"
+                    :disabled="!allProjectInfoEntered"
+                    @click="submitProject">Add Project</button>
 
 
         </dialog>
@@ -57,20 +58,20 @@
 </template>
 
 <script>
-import {  collection, addDoc, setDoc, doc, updateDoc  } from "firebase/firestore";
+import { collection, addDoc, setDoc, doc, updateDoc } from "firebase/firestore";
 import { db, auth, storage } from "@/firebase/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 
 export default {
-    data(){
-        return{
+    data() {
+        return {
 
             user: null,
             // project_defaults:{
             //     default_projectLogo: "../src/assets/logos/4-blacknwhite.png",
             // },
-            projectInfo:{
+            projectInfo: {
                 logoURL: null,
                 logo: null,
                 name: "",
@@ -80,8 +81,8 @@ export default {
         }
     },
     mounted() {
-      this.$refs.addprojectmodal_ref.showModal()
-      this.$refs.nameinputproject_ref.focus()
+        this.$refs.editProjectInfomodal_ref.showModal()
+        this.$refs.nameinputproject_ref.focus()
 
         //   Retrieve the user data
         // auth.onAuthStateChanged((user) => {
@@ -90,7 +91,7 @@ export default {
         //         console.log(this.user);
         //     }
         // });
-  },
+    },
     computed: {
         allProjectInfoEntered() {
             for (let key in this.projectInfo) {
@@ -101,12 +102,12 @@ export default {
             return (true)
         }
     },
-    methods:{
-        logoSelectedorNot(){
+    methods: {
+        logoSelectedorNot() {
             if (this.projectInfo.logo) {
                 return true
             }
-            else{
+            else {
                 return false
             }
         },
@@ -144,7 +145,7 @@ export default {
                             // this.$refs.project_logo_input.value = null; // Clear the file input field
                             return;
                         }
-                        
+
                         this.projectInfo.logoURL = reader.result;
                         this.projectInfo.logo = file;
                     };
@@ -153,21 +154,21 @@ export default {
                 reader.readAsDataURL(file);
             }
         },
-        
+
         async submitProject() {
             // Get the input values
             let projectLogo = "";
             let projectLogoFile = this.projectInfo.logo;
-            let dataAttributeProjectId = null;    
+            let dataAttributeProjectId = null;
 
             const projectName = this.projectInfo.name;
             const projectUrl = this.projectInfo.url;
-            const projectDescription = this.projectInfo.description;    
+            const projectDescription = this.projectInfo.description;
 
 
 
-            
-            
+
+
             let projectKIsettings = {
                 colorTheme: "#106194",
                 customRequestMsg: "Hey Visitor! Please take a minute to rate my project :)",
@@ -184,16 +185,16 @@ export default {
                 projectDescription,
                 projectKIsettings
             }
-            
+
             const userID = auth.currentUser.uid;
-            
-            const newProjectRef = collection(db,"users",userID,"projects");
-            
+
+            const newProjectRef = collection(db, "users", userID, "projects");
+
             // Add a new document with a generated id.
             const projectRef = await addDoc(newProjectRef, projectDetails);
             let projectID = projectRef.id
             console.log("Document written with ID: ", projectID);
-            
+
 
             // UPDATING RATE ICON 
             const rateIconPath = 'src/assets/rateIcon.svg';
@@ -202,20 +203,20 @@ export default {
             const imageBlob = await response.blob();
 
             // Create a reference to the storage location for rate_icon.jpg
-            const rateIconstorageRef = ref(storage,`usersAssets/${userID}/projectsAssets/${projectID}/rateIcon.svg`);
+            const rateIconstorageRef = ref(storage, `usersAssets/${userID}/projectsAssets/${projectID}/rateIcon.svg`);
 
             // Upload the existing image file as rate_icon.jpg
             await uploadBytes(rateIconstorageRef, imageBlob);
 
             // Get the download URL for the uploaded rate_icon.jpg
             const rateIconDownloadURL = await getDownloadURL(rateIconstorageRef);
-            
+
             // Upload the projectLogo and get the URL
             let logoFileDownloadURL = projectLogoFile;
             let logoFilestorageRef = ref(storage, `usersAssets/${userID}/projectsAssets/${projectID}/logo.jpg`);
             await uploadBytes(logoFilestorageRef, projectLogoFile);
             logoFileDownloadURL = await getDownloadURL(logoFilestorageRef);
-            
+
             projectLogo = logoFileDownloadURL;
             dataAttributeProjectId = projectID
 
@@ -228,15 +229,15 @@ export default {
 
             // Update Project Logo value with the Firestore URL             
             const newprojectRef = doc(db, "users", userID, "projects", projectID);
-            
+
             // Set the "capital" field of the city 'DC'
             await updateDoc(newprojectRef, {
-                dataAttributeProjectId, projectLogo, 
+                dataAttributeProjectId, projectLogo,
                 "projectKIsettings.customRateIcon": rateIconDownloadURL
             });
-            
+
             this.$emit("projectAdded", projectID)
-            this.$emit('closeAddprojectModalClicked')
+            this.$emit('closeeditProjectInfoModalClicked')
 
         },
 
@@ -246,28 +247,28 @@ export default {
 </script>
 
 <style>
-
-.addprojectmodal {
+.editProjectInfomodal {
     position: fixed;
     min-width: 40%;
     padding: 1rem;
     overflow-y: hidden;
-    
+
 }
 
 
-.addProjectModal_logo_div {
+.editProjectInfoModal_logo_div {
     width: 7rem;
     position: relative;
 }
-.addProjectModal_logo_img{
+
+.editProjectInfoModal_logo_img {
     border-radius: 100%;
     width: 100%;
     padding: .5rem;
 }
 
 
-.addProjectModal_logo_div label {
+.editProjectInfoModal_logo_div label {
     position: absolute;
     top: 0;
     right: 0;
@@ -276,23 +277,25 @@ export default {
     padding: 0.4rem;
     user-select: none;
 }
-.addProjectModal_logo_div label:hover {
+
+.editProjectInfoModal_logo_div label:hover {
     cursor: pointer;
     background-color: rgba(0, 0, 0, 0.1);
 
 }
-.addProjectModal_logo_div input {
+
+.editProjectInfoModal_logo_div input {
     display: none;
 }
 
-.addpm_eachinputgroup{
+.addpm_eachinputgroup {
     padding: .3rem;
     margin-block: .2rem;
     min-width: 60%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    
+
 }
 
 .addpm_eachinputgroup textarea {
@@ -302,9 +305,8 @@ export default {
 }
 
 
-.closeaddprojectmodal_button {
+.closeeditProjectInfomodal_button {
     top: 1rem;
     right: 1rem;
 }
-
 </style>

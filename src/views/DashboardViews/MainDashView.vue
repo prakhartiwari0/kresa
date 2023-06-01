@@ -8,7 +8,10 @@
                 
             <template  v-if="showprojectStats">
                 <projectStats @closeprojectStatsClicked="
-                    this.showprojectStats = false"/>
+                    this.showprojectStats = false"
+                    :projectID="openedProjectID"
+                    :userID="userID"
+                    />
             
             </template>
         <template v-else>

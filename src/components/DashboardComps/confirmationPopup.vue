@@ -31,37 +31,52 @@ export default{
 </script>
 
 <style>
-
-
+.confirmationPopupDialog{
+    overflow-x: hidden;
+    max-width: 30%;
+    padding: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.confirmationPopupDialog span{
+    font-size: 1.5rem;
+    font-weight: 700;
+}
 .yesnobuttonsdiv{
     margin: 1rem;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: center;
+    --confirmation-red: rgb(174, 21, 21);
+    --confirmation-green: rgb(13, 122, 26);
+    
 }
 .yesnobuttonsdiv button{
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     min-width: 5rem;
-    margin-inline: 1rem;
+    margin-inline: 1.3rem;
+    /* transition: none; */
 }
 
 .yesbutton{
     color: white;
-    border: red solid 2px;
-    background-color: red;
+    border: var(--confirmation-red) solid 2px;
+    background-color: var(--confirmation-red);
 }
 .yesbutton:hover{
-    color: red;
+    color: var(--confirmation-red);
     background-color: transparent;
 
 }
 .nobutton{
     color: white;
-    border: green solid 2px;
-    background-color: green;
+    border: var(--confirmation-green) solid 2px;
+    background-color: var(--confirmation-green);
 }
 .nobutton:hover{
-    color: green;
+    color: var(--confirmation-green);
     background-color: transparent;
 
 }
