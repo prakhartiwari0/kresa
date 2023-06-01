@@ -129,6 +129,7 @@
 	cursor: pointer;
 	font-family: var(--default-font);
 	font-weight: 700;
+	user-select: none;
 
 	transition: 0.2s ease;
 }
@@ -137,7 +138,8 @@
 	color: var(--lightest-lavender);
 }
 .default_button:focus {
-	outline: var(--k-blue) 2px solid;
+	/* border: var(--lightest-k-blue) 2px solid; */
+	outline: var(--lightest-k-blue) 2px solid;
 }
 .default_button:disabled{
 	border-color: grey;
