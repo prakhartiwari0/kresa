@@ -66,6 +66,9 @@ export default {
 
         }
     },
+    beforeUnmount(){
+        this.$refs.editprofilemodal_ref.close()
+    },
     mounted() {
         this.$refs.editprofilemodal_ref.showModal()
         

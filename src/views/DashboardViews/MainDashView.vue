@@ -90,8 +90,6 @@ export default {
         onOpenProjectStatsClicked(projectID) {
             this.showprojectStats = true
             this.openedProjectID = projectID
-            // this.loadSideBarContent(projectID)
-            console.log('Selected project:', this.openedProjectID);
         }
     }
 
@@ -116,8 +114,7 @@ export default {
     flex-grow: 1;
     overflow-y: auto;
     overflow-x: hidden;
-    
-    
+    position: relative;
     display: flex;
     flex-direction: column;
 }

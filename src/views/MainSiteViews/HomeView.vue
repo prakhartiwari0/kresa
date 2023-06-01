@@ -1,28 +1,30 @@
 
 <template>
+<div class="home">
 
-<Navbar 
-@pageChange="(pageName) =>  currentPage = pageName"
+    <Navbar 
+    @pageChange="(pageName) =>  currentPage = pageName"
+    
 
-
-@onShowLogSignPopup="showLogSignPopup($event)"
->
+    @onShowLogSignPopup="showLogSignPopup($event)"
+    >
 </Navbar>
 
 
-    <LoginSignupPopup v-if="LogSignPopupVisible"
-    @signInWithGitHubClick="signInWithGitHub"
-    @closeLoginSignupPopupClicked="closeLoginSignupPopup($event)"/>
+<LoginSignupPopup v-if="LogSignPopupVisible"
+@signInWithGitHubClick="signInWithGitHub"
+@closeLoginSignupPopupClicked="closeLoginSignupPopup($event)"/>
 
 
 
 
-    <HomeFirstSection v-if="currentPage==='home'"></HomeFirstSection>
-    <HowitworksPage v-if="currentPage==='howitworks'"></HowitworksPage>
+<HomeFirstSection v-if="currentPage==='home'"></HomeFirstSection>
+<HowitworksPage v-if="currentPage==='howitworks'"></HowitworksPage>
 
 
 
 <Footer></Footer>
+</div>
 
 </template>
 
@@ -137,5 +139,9 @@ export default {
 
 
 <style>
+.home{
+    font-family: var(--default-font);
+}
+
 
 </style>

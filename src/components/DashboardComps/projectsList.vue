@@ -50,7 +50,7 @@ export default {
                 // {
                 //     name: "Arito",
                 //     logo: "../../../src/assets/examplefiles/Arito_icon.png",
-                //     dataAttributeProjectId: null,
+                //     dataAttributeProjectId: "whgoiHvlJHglajsth",
                 // },
             ]
         }
@@ -95,9 +95,6 @@ export default {
 
         },
         async newProjectAdded(projectID){
-            // const newProjectRef = collection(db, "users", userID, "projects");
-            console.log("Project has been added, the id is:",projectID);
-
             await this.loadNewProject(projectID);
         },
         openProjectStatsClicked(projectID){
@@ -146,6 +143,7 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
     width: 5rem;
     margin-inline: 2rem;
     transition: 0.2s ease;
@@ -156,7 +154,7 @@ export default {
 }
 
 .projectdiv:hover {
-    transform: scale(1.1);
+    transform: scale(1.2);
     color: white;
     background-color: hsl(var(--kblueHue), var(--kblueSaturation), var(--kblueLightness), 0.7);
 }
