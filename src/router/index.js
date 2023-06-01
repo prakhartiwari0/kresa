@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/MainSiteViews/HomeView.vue'
-import MainDashView from '../views/DashboardViews/MainDashView.vue'
+// import MainDashView from '../views/DashboardViews/MainDashView.vue'
 
 
 import AuthGuard from "../firebase/AuthGaurd";
@@ -17,7 +17,13 @@ const router = createRouter({
     {
       path: '/dashboard',
       name: 'dashboard',
-      component: MainDashView,
+      // component: MainDashView,
+
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/DashboardViews/MainDashView.vue'),
+
       meta: { title: 'Kresa Dashboard' },
       beforeEnter: (to, from, next) => {
         AuthGuard.init()
