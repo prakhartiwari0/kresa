@@ -6,10 +6,12 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0');
 
-* {
-	box-sizing: border-box;
-	padding: 0px;
-	margin: 0px;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 /* PROJECT VARIABLES */
