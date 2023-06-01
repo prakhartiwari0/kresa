@@ -67,6 +67,15 @@
   width: 10px;
 }
 
+dialog::-webkit-scrollbar-track {
+	margin: 2rem;
+}
+dialog::-webkit-scrollbar-thumb {
+	background-color: var(--darkest-lavender);
+}
+dialog::-webkit-scrollbar-thumb:hover {
+	background-color: var(--darker-lavender);
+}
 ::-webkit-scrollbar-track {
   background-color: transparent;
 }
